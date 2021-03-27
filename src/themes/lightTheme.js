@@ -6,12 +6,13 @@ const lightTheme = createMuiTheme({
     type: 'light',
     primary: {
       light: '#ff9e00',
-      main: '#ff9100',
+      main: '#7b2cbf',
       dark: '#ff6d00',
     },
     secondary: {
-      main: '#D4D4D4',
-      dark: '#7b2cbf',
+      light: '#D4D4D4',
+      main: '#ff9100',
+      opacity: 'rgba(255,255,255,0.7)',
     },
     text: {
       primary: '#1E1E1E',
@@ -20,7 +21,7 @@ const lightTheme = createMuiTheme({
   },
   typography: {
     fontFamily: "'Roboto', 'verdana', 'sans-serif'",
-    fontSize: '14',
+    fontSize: 14,
     h1: {
       fontSize: '3rem',
     },
