@@ -21,7 +21,6 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
       >
         <Toolbar />
         <List>
-          <Divider />
           <ListItem>
             <Button color="primary" variant="outlined">
               <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
@@ -30,12 +29,13 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
             </Button>
           </ListItem>
           <ListItem>
-            <Button color="secondary" variant="outlined">
+            <Button color="primary" variant="outlined">
               <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
                 Cadastrar meu restaurante
               </ListItemText>
             </Button>
           </ListItem>
+          <Divider />
         </List>
       </SwipeableDrawer>
     </>

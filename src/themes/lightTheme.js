@@ -10,8 +10,8 @@ const lightTheme = createMuiTheme({
       dark: '#ff6d00',
     },
     secondary: {
-      light: '#D4D4D4',
-      main: '#ff9100',
+      main: '#D4D4D4',
+      dark: '#ff9100',
       opacity: 'rgba(255,255,255,0.7)',
     },
     text: {
