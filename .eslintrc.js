@@ -21,5 +21,6 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'import/prefer-default-export': 0,
     'react/react-in-jsx-scope': 0,
+    'linebreak-style': 'off',
   },
 };
