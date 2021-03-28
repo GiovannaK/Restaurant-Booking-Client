@@ -4,16 +4,19 @@ const useStyles = makeStyles((lightTheme) => ({
   root: {
     flexGrow: 1,
   },
+  appBar: {
+    background: lightTheme.palette.secondary.opacity,
+  },
   menuButton: {
-    marginRight: lightTheme.spacing(3),
+    marginRight: lightTheme.spacing(1),
   },
   button: {
-    background: lightTheme.palette.primary.dark,
+    color: lightTheme.palette.primary.dark,
     minWidth: '10rem',
     marginLeft: lightTheme.spacing(3),
   },
   icon: {
-    marginRight: lightTheme.spacing(2),
+    color: lightTheme.palette.primary.main,
   },
   title: {
     flexGrow: 1,

@@ -25,19 +25,19 @@ export const Header = () => {
               aria-label="menu"
               onClick={() => setOpenDrawer(true)}
             >
-              <MenuIcon />
+              <MenuIcon color="primary" />
             </IconButton>
           </Hidden>
           <Typography variant="h4" className={classes.title}>
             GetYourTable
-            <RestaurantMenuIcon />
+            <RestaurantMenuIcon className={classes.icon} />
           </Typography>
           <Hidden smDown>
-            <Button color="secondary" variant="outlined" size="large">
+            <Button color="primary" variant="outlined" size="large">
               <RestaurantIcon className={classes.icon} />
               Cadastrar meu restaurante
             </Button>
-            <Button color="secondary" size="large" className={classes.button}>
+            <Button color="primary" variant="outlined" size="large" className={classes.button}>
               Entrar
             </Button>
           </Hidden>

@@ -12,7 +12,7 @@ const lightTheme = createMuiTheme({
     secondary: {
       main: '#D4D4D4',
       dark: '#ff9100',
-      opacity: 'rgba(255,255,255,0.7)',
+      opacity: 'rgba(255,255,255,0.8)',
     },
     text: {
       primary: '#1E1E1E',
@@ -35,10 +35,10 @@ const lightTheme = createMuiTheme({
       fontSize: '1.5rem',
     },
     h5: {
-      fontSize: '1rem',
+      fontSize: '1.3rem',
     },
     h6: {
-      fontSize: '0.5rem',
+      fontSize: '1rem',
     },
   },
 });
