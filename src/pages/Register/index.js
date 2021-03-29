@@ -3,6 +3,7 @@ import {
   Box, Button, Card, CardContent, Grid, Hidden, TextField, Toolbar, Typography,
 } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useStyles from './styles';
 import registerImage from '../../images/register.jpg';
 
@@ -112,9 +113,11 @@ export const Register = () => {
                       </Button>
                     </Typography>
                     <Typography variant="h6">
-                      <Button variant="outlined" color="primary">
-                        Tem uma conta?
-                      </Button>
+                      <Link to="/login" style={{ textDecoration: 'none' }}>
+                        <Button variant="outlined" color="primary">
+                          Tem uma conta?
+                        </Button>
+                      </Link>
                     </Typography>
                   </div>
                 </form>

@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DrawerComponent } from '../DrawerComponent';
 import useStyles from './styles';
 
@@ -37,9 +38,11 @@ export const Header = () => {
               <RestaurantIcon className={classes.icon} />
               Cadastrar meu restaurante
             </Button>
-            <Button color="primary" variant="outlined" size="large" className={classes.button}>
-              Entrar
-            </Button>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button color="primary" variant="outlined" size="large" className={classes.button}>
+                Entrar
+              </Button>
+            </Link>
           </Hidden>
         </Toolbar>
       </AppBar>

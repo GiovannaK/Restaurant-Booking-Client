@@ -5,6 +5,25 @@ import {
 import React, { useState } from 'react';
 import useStyles from './styles';
 
+const categories = [
+  {
+    id: 1,
+    name: 'Café',
+  },
+  {
+    id: 2,
+    name: 'Cozinha autoral',
+  },
+  {
+    id: 3,
+    name: 'Cantina',
+  },
+  {
+    id: 4,
+    name: 'Fast Food',
+  },
+];
+
 export const TabsComponent = () => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
@@ -21,12 +40,8 @@ export const TabsComponent = () => {
           scrollButtons="auto"
           textColor="primary"
         >
-          <Tab label="One" />
-          <Tab label="One" />
-          <Tab label="One" />
-          <Tab label="One" />
-          <Tab label="One" />
-          <Tab label="One" />
+          {categories.map((category) => (<Tab key={category.id} label={category.name} />))}
+
         </Tabs>
       </AppBar>
     </>

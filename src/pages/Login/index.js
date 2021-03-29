@@ -79,9 +79,11 @@ export const Login = () => {
                       </Button>
                     </Typography>
                     <Typography variant="h6">
-                      <Button variant="outlined" color="primary">
-                        Não tem uma conta?
-                      </Button>
+                      <Link to="/register" style={{ textDecoration: 'none' }}>
+                        <Button variant="outlined" color="primary">
+                          Não tem uma conta?
+                        </Button>
+                      </Link>
                     </Typography>
                   </div>
                 </form>
