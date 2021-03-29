@@ -10,6 +10,7 @@ import { Register } from '../pages/Register';
 import { ForgotPassword } from '../pages/ForgotPassword';
 import { ResetPassword } from '../pages/ResetPassword';
 import { AccountConfirmation } from '../pages/AccountConfirmation';
+import { Page404 } from '../pages/Page404';
 
 export const Routes = () => (
   <Switch>
@@ -20,5 +21,6 @@ export const Routes = () => (
     <Route exact path="/account_confirmation" component={AccountConfirmation} />
     <Route exact path="/forgot_password" component={ForgotPassword} />
     <Route exact path="/reset_password" component={ResetPassword} />
+    <Route path="*" component={Page404} />
   </Switch>
 );
