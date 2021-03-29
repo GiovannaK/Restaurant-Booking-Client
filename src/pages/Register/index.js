@@ -3,11 +3,10 @@ import {
   Box, Button, Card, CardContent, Grid, Hidden, TextField, Toolbar, Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import useStyles from './styles';
-import loginImage from '../../images/login.jpg';
+import registerImage from '../../images/register.jpg';
 
-export const Login = () => {
+export const Register = () => {
   const classes = useStyles();
   return (
     <>
@@ -17,23 +16,58 @@ export const Login = () => {
           <Grid item align="center" xs={12} sm={2} md={2} lg={6} xl={6}>
             <Hidden mdDown>
               <img
-                src={loginImage}
-                style={{ width: '100%', height: '88vh' }}
+                src={registerImage}
                 alt="restaurante"
+                style={{ width: '100%', height: '88vh' }}
               />
             </Hidden>
           </Grid>
           <Grid item align="center" xs={12} sm={8} md={8} lg={6} xl={6}>
-            <Card style={{ height: '88vh' }} variant="outlined">
+            <Card style={{ height: '88vh', overflow: 'auto' }} variant="outlined">
               <CardContent>
-                <Typography
-                  variant="h3"
-                  className={classes.typography}
-                >
-                  Login
+                <Typography variant="h4" className={classes.typography}>
+                  Registre-se
                 </Typography>
-                <Toolbar />
                 <form>
+                  <TextField
+                    id="outlined-firstName-input"
+                    label="Nome"
+                    type="text"
+                    placeholder="Seu nome"
+                    variant="outlined"
+                    style={{ width: '100%' }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.inputLabel,
+                    }}
+                  />
+                  <Toolbar />
+                  <TextField
+                    id="outlined-lastName-input"
+                    label="Sobrenome"
+                    type="text"
+                    placeholder="Seu sobrenome"
+                    variant="outlined"
+                    style={{ width: '100%' }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.inputLabel,
+                    }}
+                  />
+                  <Toolbar />
+                  <TextField
+                    id="outlined-phone-input"
+                    label="Número de celular"
+                    type="tel"
+                    placeholder="exemplo 11999000000"
+                    variant="outlined"
+                    style={{ width: '100%' }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.inputLabel,
+                    }}
+                  />
+                  <Toolbar />
                   <TextField
                     id="outlined-email-input"
                     label="E-mail"
@@ -69,18 +103,17 @@ export const Login = () => {
                     style={{ width: '100%' }}
                     type="submit"
                   >
-                    Login
+                    Registre-se
                   </Button>
-                  <Toolbar />
                   <div className={classes.links}>
                     <Typography variant="h6">
                       <Button variant="outlined" color="primary">
-                        Esqueceu a senha?
+                        Tenho um restaurante
                       </Button>
                     </Typography>
                     <Typography variant="h6">
                       <Button variant="outlined" color="primary">
-                        Não tem uma conta?
+                        Tem uma conta?
                       </Button>
                     </Typography>
                   </div>
