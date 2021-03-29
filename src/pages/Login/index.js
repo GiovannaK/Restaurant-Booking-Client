@@ -74,9 +74,11 @@ export const Login = () => {
                   <Toolbar />
                   <div className={classes.links}>
                     <Typography variant="h6">
-                      <Button variant="outlined" color="primary">
-                        Esqueceu a senha?
-                      </Button>
+                      <Link to="/forgot_password" style={{ textDecoration: 'none' }}>
+                        <Button variant="outlined" color="primary">
+                          Esqueceu a senha?
+                        </Button>
+                      </Link>
                     </Typography>
                     <Typography variant="h6">
                       <Link to="/register" style={{ textDecoration: 'none' }}>
