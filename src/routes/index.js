@@ -5,10 +5,12 @@ import { PrivateRoute } from './privateRoute';
 
 import { Home } from '../pages/Home';
 import { RestaurantDetail } from '../pages/RestaurantDetail';
+import { Login } from '../pages/Login';
 
 export const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route exact path="/details" component={RestaurantDetail} />
+    <Route exact path="/login" component={Login} />
   </Switch>
 );
