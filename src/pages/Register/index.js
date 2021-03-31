@@ -59,7 +59,7 @@ export const Register = () => {
                   <TextField
                     id="outlined-phone-input"
                     label="Número de celular"
-                    type="tel"
+                    type="number"
                     placeholder="exemplo 11999000000"
                     variant="outlined"
                     style={{ width: '100%' }}

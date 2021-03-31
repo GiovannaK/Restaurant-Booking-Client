@@ -16,7 +16,8 @@ const useStyles = makeStyles((lightTheme) => ({
   typography: {
     color: lightTheme.palette.primary.dark,
   },
-  zoom: {
+  icon: {
+    maxWidth: '23px',
   },
 }));
 
