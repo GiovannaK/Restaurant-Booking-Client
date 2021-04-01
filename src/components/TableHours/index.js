@@ -3,7 +3,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
-export const TableHours = ({ homeRestaurants }) => (
+export const TableHours = ({ restaurant }) => (
   <TableContainer style={{ overflow: 'auto' }}>
     <Table>
       <TableBody>
@@ -18,81 +18,81 @@ export const TableHours = ({ homeRestaurants }) => (
         </TableRow>
         <TableRow>
           <TableCell>
-            {homeRestaurants.monday.startHours}
+            {restaurant.monday.startHours}
             :
-            {homeRestaurants.monday.startMinutes}
+            {restaurant.monday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.tuesday.startHours}
+            {restaurant.tuesday.startHours}
             :
-            {homeRestaurants.tuesday.startMinutes}
+            {restaurant.tuesday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.wednesday.startHours}
+            {restaurant.wednesday.startHours}
             :
-            {homeRestaurants.wednesday.startMinutes}
+            {restaurant.wednesday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.thursday.startHours}
+            {restaurant.thursday.startHours}
             :
-            {homeRestaurants.thursday.startMinutes}
+            {restaurant.thursday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.friday.startHours}
+            {restaurant.friday.startHours}
             :
-            {homeRestaurants.friday.startMinutes}
+            {restaurant.friday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.saturday.startHours}
+            {restaurant.saturday.startHours}
             :
-            {homeRestaurants.saturday.startMinutes}
+            {restaurant.saturday.startMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.sunday.startHours}
+            {restaurant.sunday.startHours}
             :
-            {homeRestaurants.sunday.startMinutes}
+            {restaurant.sunday.startMinutes}
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
-            {homeRestaurants.monday.endHours}
+            {restaurant.monday.endHours}
             :
-            {homeRestaurants.monday.endMinutes}
+            {restaurant.monday.endMinutes}
           </TableCell>
           <TableCell>
-            {homeRestaurants.tuesday.endHours}
+            {restaurant.tuesday.endHours}
             :
-            {homeRestaurants.tuesday.endMinutes}
+            {restaurant.tuesday.endMinutes}
 
           </TableCell>
           <TableCell>
-            {homeRestaurants.wednesday.endHours}
+            {restaurant.wednesday.endHours}
             :
-            {homeRestaurants.wednesday.endMinutes}
+            {restaurant.wednesday.endMinutes}
 
           </TableCell>
           <TableCell>
-            {homeRestaurants.thursday.endHours}
+            {restaurant.thursday.endHours}
             :
-            {homeRestaurants.thursday.endMinutes}
+            {restaurant.thursday.endMinutes}
 
           </TableCell>
           <TableCell>
-            {homeRestaurants.friday.endHours}
+            {restaurant.friday.endHours}
             :
-            {homeRestaurants.friday.endMinutes}
+            {restaurant.friday.endMinutes}
 
           </TableCell>
           <TableCell>
-            {homeRestaurants.saturday.endHours}
+            {restaurant.saturday.endHours}
             :
-            {homeRestaurants.saturday.endMinutes}
+            {restaurant.saturday.endMinutes}
 
           </TableCell>
           <TableCell>
-            {homeRestaurants.sunday.endHours}
+            {restaurant.sunday.endHours}
             :
-            {homeRestaurants.sunday.endMinutes}
+            {restaurant.sunday.endMinutes}
 
           </TableCell>
         </TableRow>

@@ -2,20 +2,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import { Box, Grid, Toolbar } from '@material-ui/core';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CardComponent } from '../../components/CardComponent';
 import { TabsComponent } from '../../components/TabsComponent';
-import HomeContext from '../../context/HomeContext';
+import { api } from '../../services/api';
 
 export const Home = () => {
-  const { homeRestaurants, getAllRestaurants } = useContext(HomeContext);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    if (!homeRestaurants) {
-      getAllRestaurants();
-    }
-  }, [homeRestaurants]);
+    const fetchAllRestaurants = async () => {
+      try {
+        const response = await api.get('/');
+        setRestaurants(response.data.restaurants);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAllRestaurants();
+  }, []);
 
   return (
     <>
@@ -24,7 +30,7 @@ export const Home = () => {
       <Toolbar />
       <Box>
         <Grid container spacing={2}>
-          {homeRestaurants.map((restaurant) => (
+          {restaurants.map((restaurant) => (
             <Grid item align="center" xs={12} sm={6} md={6} lg={4} xl={3}>
               <Link to={`/details/${restaurant._id}`} style={{ textDecoration: 'none' }}>
                 <CardComponent key={restaurant._id} restaurant={restaurant} />

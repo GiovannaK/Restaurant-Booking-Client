@@ -1,4 +1,6 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable array-callback-return */
 import {
   Badge,
   Box,
@@ -12,8 +14,7 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import GroupIcon from '@material-ui/icons/Group';
@@ -26,26 +27,12 @@ import NoParking from '../../images/no_parking.svg';
 import useStyles from './styles';
 import { ModalComponent } from '../../components/Modal';
 import { RestaurantDetailReview } from '../../components/RestaurantDetailReview';
-import HomeContext from '../../context/HomeContext';
-
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
+import { api } from '../../services/api';
 
 export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
-  const { homeRestaurants, showRestaurant } = useContext(HomeContext);
+  const [restaurant, setRestaurant] = useState({});
+  const [images, setImages] = useState([]);
   const { id } = match.params;
   const [openModal, setOpenModal] = useState(false);
 
@@ -58,15 +45,37 @@ export const RestaurantDetail = ({ match }) => {
   };
 
   useEffect(() => {
-    showRestaurant(id);
+    const fetchRestaurant = async () => {
+      try {
+        const response = await api.get(`/${id}`);
+        setRestaurant(response.data.restaurant);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRestaurant();
   }, []);
 
-  /* useEffect(() => {
-    if (homeRestaurants !== []) {
-      showRestaurant(id);
+  useEffect(() => {
+    try {
+      const fetchImages = async () => {
+        if (restaurant.images && restaurant.images.length > 0) {
+          let imagesSlider = [];
+          restaurant.images && restaurant.images.map((item) => {
+            imagesSlider.push({
+              original: item.url,
+              thumbnail: item.url,
+            });
+          });
+          setImages(imagesSlider);
+        }
+      };
+
+      fetchImages();
+    } catch (error) {
+      console.log(error);
     }
-    console.log(homeRestaurants);
-  }, []); */
+  }, [restaurant]);
 
   return (
     <>
@@ -80,15 +89,15 @@ export const RestaurantDetail = ({ match }) => {
             <Card variant="outlined" style={{ height: '100%', overflow: 'auto' }}>
               <CardContent align="center">
                 <Typography variant="h4" className={classes.titleTypography}>
-                  {homeRestaurants.companyName}
+                  {restaurant.companyName}
                 </Typography>
                 <CardActions className={classes.cardActions}>
                   <Tooltip title="capacidade">
-                    <Badge badgeContent={homeRestaurants.capacity} color="primary">
+                    <Badge badgeContent={restaurant.capacity} color="primary">
                       <GroupIcon color="primary" />
                     </Badge>
                   </Tooltip>
-                  {homeRestaurants.isParking
+                  {restaurant.isParking
                     ? <DirectionsCarIcon color="primary" /> : (
                       <img
                         src={NoParking}
@@ -97,7 +106,7 @@ export const RestaurantDetail = ({ match }) => {
                         color="primary"
                       />
                     )}
-                  {homeRestaurants.isWifi ? <NetworkWifiIcon color="primary" />
+                  {restaurant.isWifi ? <NetworkWifiIcon color="primary" />
                     : <WifiOffIcon color="primary" />}
                 </CardActions>
                 <Divider />
@@ -105,13 +114,13 @@ export const RestaurantDetail = ({ match }) => {
                   <div>
                     <PhoneIcon />
                     <Typography variant="h6">
-                      {homeRestaurants.phone}
+                      {restaurant.phone}
                     </Typography>
                   </div>
                   <div>
                     <RoomIcon />
                     <Typography variant="h6">
-                      {homeRestaurants.address}
+                      {restaurant.address}
                     </Typography>
                   </div>
                 </CardActions>
@@ -126,7 +135,7 @@ export const RestaurantDetail = ({ match }) => {
                 <ModalComponent
                   openModal={openModal}
                   handleClose={handleClose}
-                  homeRestaurants={homeRestaurants}
+                  restaurant={restaurant}
                 />
                 <Button
                   className={classes.button}

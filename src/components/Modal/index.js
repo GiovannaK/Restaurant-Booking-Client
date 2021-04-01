@@ -9,7 +9,7 @@ import { TableHours } from '../TableHours';
 import useStyles from './styles';
 
 export const ModalComponent = ({
-  openModal, handleClose, homeRestaurants,
+  openModal, handleClose, restaurant,
 }) => {
   const classes = useStyles();
 
@@ -22,7 +22,7 @@ export const ModalComponent = ({
       <Card className={classes.modalCard}>
         <CardContent align="center">
           <Toolbar />
-          <TableHours homeRestaurants={homeRestaurants} />
+          <TableHours restaurant={restaurant} />
         </CardContent>
       </Card>
     </Modal>

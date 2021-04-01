@@ -28,6 +28,7 @@ export const RestaurantDetailReview = () => {
                 </CardActions>
                 <Rating
                   value={5}
+                  name="rating"
                 />
                 <Typography>
                   Lorem ipsum, dolor sit amet consectetur
@@ -47,6 +48,7 @@ export const RestaurantDetailReview = () => {
                 </CardActions>
                 <Rating
                   value={5}
+                  name="rating1"
                 />
                 <Typography>
                   Lorem ipsum, dolor sit amet consectetur
