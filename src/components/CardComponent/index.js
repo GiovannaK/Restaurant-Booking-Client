@@ -7,7 +7,6 @@ import NetworkWifiIcon from '@material-ui/icons/NetworkWifi';
 import WifiOffIcon from '@material-ui/icons/WifiOff';
 import React from 'react';
 import useStyles from './styles';
-import restaurantImage from '../../images/restaurant.jpg';
 import NoParking from '../../images/no_parking.svg';
 
 export const CardComponent = ({ restaurant }) => {

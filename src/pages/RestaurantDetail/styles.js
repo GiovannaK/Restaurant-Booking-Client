@@ -24,6 +24,10 @@ const useStyles = makeStyles((lightTheme) => ({
     textTransform: 'uppercase',
     letterSpacing: 2,
   },
+  icon: {
+    maxWidth: '23px',
+  },
+
 }));
 
 export default useStyles;

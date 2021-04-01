@@ -13,17 +13,20 @@ import {
   Typography,
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import GroupIcon from '@material-ui/icons/Group';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import NetworkWifiIcon from '@material-ui/icons/NetworkWifi';
+import WifiOffIcon from '@material-ui/icons/WifiOff';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
+import NoParking from '../../images/no_parking.svg';
 import useStyles from './styles';
 import { ModalComponent } from '../../components/Modal';
 import { RestaurantDetailReview } from '../../components/RestaurantDetailReview';
+import HomeContext from '../../context/HomeContext';
 
 const images = [
   {
@@ -40,9 +43,10 @@ const images = [
   },
 ];
 
-export const RestaurantDetail = () => {
+export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
-
+  const { homeRestaurants, showRestaurant } = useContext(HomeContext);
+  const { id } = match.params;
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => {
@@ -52,6 +56,17 @@ export const RestaurantDetail = () => {
   const handleClose = () => {
     setOpenModal(false);
   };
+
+  useEffect(() => {
+    showRestaurant(id);
+  }, []);
+
+  /* useEffect(() => {
+    if (homeRestaurants !== []) {
+      showRestaurant(id);
+    }
+    console.log(homeRestaurants);
+  }, []); */
 
   return (
     <>
@@ -65,29 +80,38 @@ export const RestaurantDetail = () => {
             <Card variant="outlined" style={{ height: '100%', overflow: 'auto' }}>
               <CardContent align="center">
                 <Typography variant="h4" className={classes.titleTypography}>
-                  Restaurant 1
+                  {homeRestaurants.companyName}
                 </Typography>
                 <CardActions className={classes.cardActions}>
                   <Tooltip title="capacidade">
-                    <Badge badgeContent={400} color="primary">
+                    <Badge badgeContent={homeRestaurants.capacity} color="primary">
                       <GroupIcon color="primary" />
                     </Badge>
                   </Tooltip>
-                  <DirectionsCarIcon color="primary" />
-                  <NetworkWifiIcon color="primary" />
+                  {homeRestaurants.isParking
+                    ? <DirectionsCarIcon color="primary" /> : (
+                      <img
+                        src={NoParking}
+                        alt="no parking"
+                        className={classes.icon}
+                        color="primary"
+                      />
+                    )}
+                  {homeRestaurants.isWifi ? <NetworkWifiIcon color="primary" />
+                    : <WifiOffIcon color="primary" />}
                 </CardActions>
                 <Divider />
                 <CardActions className={classes.contact}>
                   <div>
                     <PhoneIcon />
                     <Typography variant="h6">
-                      4530345678
+                      {homeRestaurants.phone}
                     </Typography>
                   </div>
                   <div>
                     <RoomIcon />
                     <Typography variant="h6">
-                      Avenida aaaaa, 456, Cascavel PR
+                      {homeRestaurants.address}
                     </Typography>
                   </div>
                 </CardActions>
@@ -102,6 +126,7 @@ export const RestaurantDetail = () => {
                 <ModalComponent
                   openModal={openModal}
                   handleClose={handleClose}
+                  homeRestaurants={homeRestaurants}
                 />
                 <Button
                   className={classes.button}

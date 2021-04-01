@@ -15,7 +15,7 @@ import { Page404 } from '../pages/Page404';
 export const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route exact path="/details" component={RestaurantDetail} />
+    <Route exact path="/details/:id" component={RestaurantDetail} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/account_confirmation" component={AccountConfirmation} />
