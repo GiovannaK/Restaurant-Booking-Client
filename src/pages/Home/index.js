@@ -25,7 +25,7 @@ export const Home = () => {
 
   return (
     <>
-      <TabsComponent />
+      <TabsComponent restaurants={restaurants} />
 
       <Toolbar />
       <Box>

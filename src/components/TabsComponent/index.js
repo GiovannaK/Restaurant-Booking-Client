@@ -2,30 +2,28 @@
 import {
   AppBar, Tab, Tabs, Toolbar,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { api } from '../../services/api';
 import useStyles from './styles';
-
-const categories = [
-  {
-    id: 1,
-    name: 'Café',
-  },
-  {
-    id: 2,
-    name: 'Cozinha autoral',
-  },
-  {
-    id: 3,
-    name: 'Cantina',
-  },
-  {
-    id: 4,
-    name: 'Fast Food',
-  },
-];
 
 export const TabsComponent = () => {
   const classes = useStyles();
+  const [category, setCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get('/restaurant_categories/');
+        setCategory(response.data.restaurantCategories);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleSelectedTab = (e, newValue) => {
@@ -37,10 +35,13 @@ export const TabsComponent = () => {
       <AppBar position="static" color="primary">
         <Tabs
           variant="scrollable"
+          value={selectedTab}
           scrollButtons="auto"
-          textColor="primary"
+          textColor="secondary"
+          onChange={handleSelectedTab}
         >
-          {categories.map((category) => (<Tab key={category.id} label={category.name} />))}
+          <Tab label="Todas" />
+          {category.map((cat) => (<Tab key={cat.id} label={cat.name} />))}
 
         </Tabs>
       </AppBar>
