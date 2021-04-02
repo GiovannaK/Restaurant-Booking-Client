@@ -36,10 +36,12 @@ export const Header = () => {
             </Link>
           </Typography>
           <Hidden smDown>
-            <Button color="primary" variant="outlined" size="large">
-              <RestaurantIcon className={classes.icon} />
-              Cadastrar meu restaurante
-            </Button>
+            <Link to="/register_as_partner" style={{ textDecoration: 'none' }}>
+              <Button color="primary" variant="outlined" size="large">
+                <RestaurantIcon className={classes.icon} />
+                Cadastrar meu restaurante
+              </Button>
+            </Link>
             <Link to="/login" style={{ textDecoration: 'none' }}>
               <Button color="primary" variant="outlined" size="large" className={classes.button}>
                 Entrar

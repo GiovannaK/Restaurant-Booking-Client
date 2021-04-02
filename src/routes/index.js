@@ -11,6 +11,7 @@ import { ForgotPassword } from '../pages/ForgotPassword';
 import { ResetPassword } from '../pages/ResetPassword';
 import { AccountConfirmation } from '../pages/AccountConfirmation';
 import { Page404 } from '../pages/Page404';
+import { RegisterPartner } from '../pages/RegisterPartner';
 
 export const Routes = () => (
   <Switch>
@@ -18,6 +19,7 @@ export const Routes = () => (
     <Route exact path="/details/:id" component={RestaurantDetail} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Register} />
+    <Route exact path="/register_as_partner" component={RegisterPartner} />
     <Route exact path="/account_confirmation" component={AccountConfirmation} />
     <Route exact path="/forgot_password" component={ForgotPassword} />
     <Route exact path="/reset_password" component={ResetPassword} />

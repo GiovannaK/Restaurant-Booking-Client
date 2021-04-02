@@ -6,6 +6,7 @@ import {
   List, ListItem, ListItemText, SwipeableDrawer, Toolbar,
 } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useStyles from './styles';
 
 export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
@@ -22,18 +23,22 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
         <Toolbar />
         <List>
           <ListItem>
-            <Button color="primary" variant="outlined">
-              <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
-                Entrar na minha conta
-              </ListItemText>
-            </Button>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button color="primary" variant="outlined">
+                <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
+                  Entrar na minha conta
+                </ListItemText>
+              </Button>
+            </Link>
           </ListItem>
           <ListItem>
-            <Button color="primary" variant="outlined">
-              <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
-                Cadastrar meu restaurante
-              </ListItemText>
-            </Button>
+            <Link to="/register_as_partner" style={{ textDecoration: 'none' }}>
+              <Button color="primary" variant="outlined">
+                <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
+                  Cadastrar meu restaurante
+                </ListItemText>
+              </Button>
+            </Link>
           </ListItem>
           <Divider />
         </List>
