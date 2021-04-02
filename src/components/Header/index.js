@@ -30,8 +30,10 @@ export const Header = () => {
             </IconButton>
           </Hidden>
           <Typography variant="h4" className={classes.title}>
-            GetYourTable
-            <RestaurantMenuIcon className={classes.icon} />
+            <Link to="/">
+              GetYourTable
+              <RestaurantMenuIcon className={classes.icon} />
+            </Link>
           </Typography>
           <Hidden smDown>
             <Button color="primary" variant="outlined" size="large">
