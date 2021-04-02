@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
@@ -33,6 +34,7 @@ export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
   const [restaurant, setRestaurant] = useState({});
   const [images, setImages] = useState([]);
+  const [review, setReview] = useState([]);
   const { id } = match.params;
   const [openModal, setOpenModal] = useState(false);
 
@@ -54,6 +56,17 @@ export const RestaurantDetail = ({ match }) => {
       }
     };
     fetchRestaurant();
+
+    const fetchRestaurantReviews = async () => {
+      try {
+        const response = await api.get(`/reviews/${id}`);
+        setReview(response.data.restaurantBookingReviews);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRestaurantReviews();
   }, []);
 
   useEffect(() => {
@@ -148,7 +161,7 @@ export const RestaurantDetail = ({ match }) => {
             </Card>
           </Grid>
         </Grid>
-        <RestaurantDetailReview />
+        <RestaurantDetailReview review={review} />
       </Box>
     </>
   );

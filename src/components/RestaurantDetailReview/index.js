@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Card, CardActions, CardContent, Grid, Toolbar, Typography,
 } from '@material-ui/core';
@@ -5,7 +6,7 @@ import Rating from '@material-ui/lab/Rating';
 import React from 'react';
 import useStyles from './styles';
 
-export const RestaurantDetailReview = () => {
+export const RestaurantDetailReview = ({ review }) => {
   const classes = useStyles();
   return (
     <Grid container>
@@ -16,46 +17,28 @@ export const RestaurantDetailReview = () => {
               Avaliações
             </Typography>
             <Toolbar />
-            <Card variant="outlined">
-              <CardContent>
-                <CardActions>
-                  <Typography
-                    varian="h5"
-                    className={classes.reviewTypography}
-                  >
-                    Giovanna Cunha
+            {review.map((item) => (
+              <Card variant="outlined" key={item.review._id}>
+                <CardContent>
+                  <CardActions>
+                    <Typography
+                      varian="h5"
+                      className={classes.reviewTypography}
+                    >
+                      {item.user.firstName}
+                    </Typography>
+                  </CardActions>
+                  <Rating
+                    value={item.review.rating}
+                    readOnly
+                  />
+                  <Typography>
+                    {item.review.comment}
                   </Typography>
-                </CardActions>
-                <Rating
-                  value={5}
-                  name="rating"
-                />
-                <Typography>
-                  Lorem ipsum, dolor sit amet consectetur
-                  adipisicing elit. Odio, tenetur?
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card variant="outlined">
-              <CardContent>
-                <CardActions>
-                  <Typography
-                    varian="h5"
-                    className={classes.reviewTypography}
-                  >
-                    Giovanna Cunha
-                  </Typography>
-                </CardActions>
-                <Rating
-                  value={5}
-                  name="rating1"
-                />
-                <Typography>
-                  Lorem ipsum, dolor sit amet consectetur
-                  adipisicing elit. Odio, tenetur?
-                </Typography>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
+
           </CardContent>
         </Card>
       </Grid>
