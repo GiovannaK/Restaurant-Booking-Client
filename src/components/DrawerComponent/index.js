@@ -5,12 +5,14 @@ import {
   Divider,
   List, ListItem, ListItemText, SwipeableDrawer, Toolbar,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext/authContext';
 import useStyles from './styles';
 
 export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
   const classes = useStyles();
+  const { authenticated, handleLogout } = useContext(AuthContext);
   return (
     <>
       <SwipeableDrawer
@@ -41,6 +43,13 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
             </Link>
           </ListItem>
           <Divider />
+          <ListItem>
+            <Button color="primary" onClick={handleLogout} variant="outlined">
+              <ListItemText spacing={4} classes={{ primary: classes.listItemText }}>
+                Sair
+              </ListItemText>
+            </Button>
+          </ListItem>
         </List>
       </SwipeableDrawer>
     </>

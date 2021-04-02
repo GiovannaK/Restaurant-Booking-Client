@@ -1,14 +1,44 @@
+/* eslint-disable no-useless-return */
 /* eslint-disable no-unused-vars */
 import {
   Box, Button, Card, CardContent, Grid, Hidden, TextField, Toolbar, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { isEmail } from 'validator';
+import { toast } from 'react-toastify';
 import useStyles from './styles';
 import loginImage from '../../images/login.jpg';
+import { AuthContext } from '../../context/AuthContext/authContext';
 
 export const Login = () => {
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { handleLogin } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let formErrors = false;
+
+    if (!isEmail(email)) {
+      formErrors = true;
+      setEmail('');
+      toast.info('E-mail inválido');
+    }
+
+    if (password.length < 8 || password.length > 255) {
+      formErrors = true;
+      setPassword('');
+      toast.info('A senha deve ter entre 8 e 255 caracteres');
+    }
+
+    if (formErrors) return;
+
+    handleLogin(email, password);
+  };
+
   return (
     <>
       <Toolbar />
@@ -33,7 +63,7 @@ export const Login = () => {
                   Login
                 </Typography>
                 <Toolbar />
-                <form>
+                <form onSubmit={handleSubmit}>
                   <TextField
                     id="outlined-email-input"
                     label="E-mail"
@@ -42,6 +72,8 @@ export const Login = () => {
                     autoComplete="current-email"
                     variant="outlined"
                     style={{ width: '100%' }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     InputLabelProps={{
                       shrink: true,
                       className: classes.inputLabel,
@@ -56,6 +88,8 @@ export const Login = () => {
                     autoComplete="current-password"
                     variant="outlined"
                     style={{ width: '100%' }}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     InputLabelProps={{
                       shrink: true,
                       className: classes.inputLabel,
