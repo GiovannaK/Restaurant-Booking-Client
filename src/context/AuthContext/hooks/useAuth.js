@@ -30,7 +30,7 @@ const useAuth = () => {
     }
 
     setLoading(false);
-  }, []);
+  }, [authenticated]);
 
   const handleLogin = async (email, password) => {
     const config = {
@@ -60,6 +60,7 @@ const useAuth = () => {
     setAuthenticated(false);
     localStorage.removeItem('authToken');
     api.defaults.headers.Authorization = undefined;
+    setLoading(false);
     history.push('/login');
   };
 
