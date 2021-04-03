@@ -9,6 +9,7 @@ import { api } from '../../../services/api';
 const useProfile = () => {
   const [user, setUser] = useState([]);
   const [userBookings, setUserBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUserInfo();
@@ -26,6 +27,7 @@ const useProfile = () => {
     try {
       const response = await api.get('/user/profile', {}, config);
       setUser(response.data.user);
+      setLoading(false);
     } catch (error) {
       toast.error('Cannot show user information');
     }
@@ -41,13 +43,14 @@ const useProfile = () => {
     try {
       const response = await api.get('/user_bookings/', {}, config);
       setUserBookings(response.data.userBookings);
+      setLoading(false);
     } catch (error) {
       toast.error('Cannot show user bookings');
     }
   };
 
   return {
-    user, userBookings,
+    user, userBookings, loading,
   };
 };
 
