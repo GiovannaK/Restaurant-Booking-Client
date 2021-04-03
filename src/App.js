@@ -8,23 +8,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import lightTheme from './themes/lightTheme';
 import history from './routes/history';
 import { AuthProvider } from './context/AuthContext/authContext';
+import { ProfileProvider } from './context/ProfileContext/profileContext';
 
 function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <Router history={history}>
         <AuthProvider>
-          <CssBaseline />
-          <Header />
-          <Container styles={{ minHeight: '100vh' }}>
-            <Routes />
-            <ToastContainer
-              position="bottom-left"
-              autoClose={5000}
-              draggable
-              pauseOnHover
-            />
-          </Container>
+          <ProfileProvider>
+            <CssBaseline />
+            <Header />
+            <Container styles={{ minHeight: '100vh' }}>
+              <Routes />
+              <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                draggable
+                pauseOnHover
+              />
+            </Container>
+          </ProfileProvider>
         </AuthProvider>
       </Router>
     </ThemeProvider>

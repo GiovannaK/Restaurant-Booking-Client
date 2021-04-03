@@ -5,14 +5,17 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import { DrawerComponent } from '../DrawerComponent';
 import useStyles from './styles';
+import { AuthContext } from '../../context/AuthContext/authContext';
 
 export const Header = () => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { authenticated, handleLogout } = useContext(AuthContext);
 
   return (
     <div className={classes.root}>
@@ -36,17 +39,30 @@ export const Header = () => {
             </Link>
           </Typography>
           <Hidden smDown>
-            <Link to="/register_as_partner" style={{ textDecoration: 'none' }}>
-              <Button color="primary" variant="outlined" size="large">
-                <RestaurantIcon className={classes.icon} />
-                Cadastrar meu restaurante
-              </Button>
-            </Link>
-            <Link to="/login" style={{ textDecoration: 'none' }}>
-              <Button color="primary" variant="outlined" size="large" className={classes.button}>
-                Entrar
-              </Button>
-            </Link>
+            {!authenticated ? (
+              <>
+                <Link to="/register_as_partner" style={{ textDecoration: 'none' }}>
+                  <Button color="primary" variant="outlined" size="large">
+                    <RestaurantIcon className={classes.icon} />
+                    Cadastrar meu restaurante
+                  </Button>
+                </Link>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                  <Button color="primary" variant="outlined" size="large" className={classes.button}>
+                    Entrar
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <NotificationsIcon color="primary" />
+                <Link to="/" style={{ textDecoration: 'none' }}>
+                  <Button onClick={handleLogout} color="primary" variant="outlined" size="large" className={classes.button}>
+                    Sair
+                  </Button>
+                </Link>
+              </>
+            )}
           </Hidden>
         </Toolbar>
       </AppBar>
