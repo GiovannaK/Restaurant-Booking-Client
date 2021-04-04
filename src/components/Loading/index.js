@@ -3,8 +3,8 @@ import React from 'react';
 
 export const Loading = () => (
   <>
-    <Grid container alignItems="center" justify="center" style={{ minHeight: '100vh' }}>
-      <CircularProgress />
+    <Grid container justify="center" style={{ minHeight: '100vh' }}>
+      <CircularProgress style={{ marginTop: '40vh' }} />
     </Grid>
   </>
 );

@@ -4,6 +4,7 @@
 import { TonalitySharp } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import history from '../../../routes/history';
 import { api } from '../../../services/api';
 
 const useProfile = () => {
@@ -49,8 +50,27 @@ const useProfile = () => {
     }
   };
 
+  const updateUserInfo = async (firstName, lastName, email, phone) => {
+    const token = await localStorage.getItem('authToken');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await api.put('/user/profile/', {
+        firstName, lastName, email, phone,
+      }, config);
+      setLoading(false);
+      toast.info('Informações atualizadas com sucesso.');
+    } catch (error) {
+      toast.error('Cannot update user information');
+    }
+  };
+
   return {
-    user, userBookings, loading,
+    user, userBookings, loading, updateUserInfo,
   };
 };
 

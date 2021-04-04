@@ -7,6 +7,8 @@ import {
 import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
 import useProfile from '../../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
 import useStyles from './styles';
@@ -24,7 +26,7 @@ export const UserBookings = () => {
             <Box>
               <Grid container justify="center" spacing={2}>
                 {userBookings.map((booking) => (
-                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} key={booking._id}>
                     <Card variant="outlined">
                       <CardContent>
                         <Typography
@@ -72,6 +74,21 @@ export const UserBookings = () => {
                                   {booking.restaurant.companyName}
                                 </strong>
                               </Link>
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              className={classes.typographyTitle}
+                            >
+                              {(() => {
+                                if (booking.approved === true) {
+                                  return <CheckIcon color="primary" />;
+                                }
+                                if (booking.approved === false) {
+                                  return <ClearIcon />;
+                                }
+                                return 'Em Andamento';
+                              })()}
                             </Typography>
                           </Grid>
                         </Grid>

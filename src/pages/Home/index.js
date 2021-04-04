@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { CardComponent } from '../../components/CardComponent';
 import { api } from '../../services/api';
 
@@ -15,6 +16,7 @@ export const Home = () => {
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -28,7 +30,7 @@ export const Home = () => {
       };
       fetchAllRestaurants();
     } catch (error) {
-      console.log(error);
+      toast.error('Server error');
     }
   }, []);
 
@@ -41,7 +43,7 @@ export const Home = () => {
 
       fetchCategories();
     } catch (error) {
-      console.log(error);
+      toast.error('Cannot show categories');
     }
   }, []);
 
