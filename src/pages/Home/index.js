@@ -9,14 +9,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CardComponent } from '../../components/CardComponent';
+import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
+import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
 import { api } from '../../services/api';
 
 export const Home = () => {
+  /* const { restaurants } = useRestaurant(RestaurantContext); */
   const [restaurants, setRestaurants] = useState([]);
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {

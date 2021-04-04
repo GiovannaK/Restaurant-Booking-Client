@@ -9,6 +9,7 @@ import lightTheme from './themes/lightTheme';
 import history from './routes/history';
 import { AuthProvider } from './context/AuthContext/authContext';
 import { ProfileProvider } from './context/ProfileContext/profileContext';
+import { RestaurantProvider } from './context/RestaurantContext/restaurantContext';
 
 function App() {
   return (
@@ -16,17 +17,19 @@ function App() {
       <Router history={history}>
         <AuthProvider>
           <ProfileProvider>
-            <CssBaseline />
-            <Header />
-            <Container styles={{ minHeight: '100vh' }}>
-              <Routes />
-              <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                draggable
-                pauseOnHover
-              />
-            </Container>
+            <RestaurantProvider>
+              <CssBaseline />
+              <Header />
+              <Container styles={{ minHeight: '100vh' }}>
+                <Routes />
+                <ToastContainer
+                  position="bottom-left"
+                  autoClose={5000}
+                  draggable
+                  pauseOnHover
+                />
+              </Container>
+            </RestaurantProvider>
           </ProfileProvider>
         </AuthProvider>
       </Router>
