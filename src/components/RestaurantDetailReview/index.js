@@ -29,6 +29,7 @@ export const RestaurantDetailReview = ({ review }) => {
                     </Typography>
                   </CardActions>
                   <Rating
+                    name="read-only"
                     value={item.review.rating}
                     readOnly
                   />

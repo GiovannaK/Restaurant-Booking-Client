@@ -3,10 +3,10 @@ import useRestaurant from './hooks/useRestaurant';
 
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
-  const { restaurants } = useRestaurant();
+  const { restaurants, category, loading } = useRestaurant();
 
   return (
-    <RestaurantContext.Provider value={{ restaurants }}>
+    <RestaurantContext.Provider value={{ restaurants, category, loading }}>
       {children}
     </RestaurantContext.Provider>
   );

@@ -8,46 +8,17 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { CannotFound } from '../../components/CannotFound';
 import { CardComponent } from '../../components/CardComponent';
+import { Loading } from '../../components/Loading';
 import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
 import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
 import { api } from '../../services/api';
 
 export const Home = () => {
-  /* const { restaurants } = useRestaurant(RestaurantContext); */
-  const [restaurants, setRestaurants] = useState([]);
-  const [category, setCategory] = useState([]);
+  const { restaurants, category, loading } = useRestaurant(RestaurantContext);
   const [filter, setFilter] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
-
-  useEffect(() => {
-    try {
-      const fetchAllRestaurants = async () => {
-        try {
-          const response = await api.get('/');
-          setRestaurants(response.data.restaurants);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchAllRestaurants();
-    } catch (error) {
-      toast.error('Server error');
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      const fetchCategories = async () => {
-        const response = await api.get('/restaurant_categories/');
-        setCategory(response.data.restaurantCategories);
-      };
-
-      fetchCategories();
-    } catch (error) {
-      toast.error('Cannot show categories');
-    }
-  }, []);
 
   const handleSelectedTab = (e, newValue) => {
     setSelectedTab(newValue);
@@ -60,31 +31,41 @@ export const Home = () => {
 
   return (
     <>
-      <Toolbar variant="regular" />
-      <AppBar position="static" color="primary">
-        <Tabs
-          variant="scrollable"
-          value={selectedTab}
-          scrollButtons="auto"
-          textColor="secondary"
-          onChange={handleSelectedTab}
-        >
-          {category.map((cat) => (<Tab key={cat._id} onClick={() => filterRestaurants(cat.name)} label={cat.name} />))}
+      {loading ? (<Loading />) : (
+        <>
+          <Toolbar variant="regular" />
+          <AppBar position="static" color="primary">
+            <Tabs
+              variant="scrollable"
+              value={selectedTab}
+              scrollButtons="auto"
+              textColor="secondary"
+              onChange={handleSelectedTab}
+            >
+              {category.map((cat) => (<Tab key={cat._id} onClick={() => filterRestaurants(cat.name)} label={cat.name} />))}
 
-        </Tabs>
-      </AppBar>
-      <Toolbar />
-      <Box>
-        <Grid container spacing={2}>
-          {filter.map((restaurant) => (
-            <Grid item align="center" xs={12} sm={6} md={6} lg={4} xl={3} key={restaurant._id}>
-              <Link to={`/details/${restaurant._id}`} style={{ textDecoration: 'none' }}>
-                <CardComponent key={restaurant._id} restaurant={restaurant} />
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+            </Tabs>
+          </AppBar>
+          {filter.length
+            ? (
+              <>
+                <Toolbar />
+                <Box>
+                  <Grid container spacing={2}>
+                    {filter.map((restaurant) => (
+                      <Grid item align="center" xs={12} sm={6} md={6} lg={4} xl={3} key={restaurant._id}>
+                        <Link to={`/details/${restaurant._id}`} style={{ textDecoration: 'none' }}>
+                          <CardComponent key={restaurant._id} restaurant={restaurant} />
+                        </Link>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </>
+            )
+            : <CannotFound />}
+        </>
+      )}
     </>
   );
 };

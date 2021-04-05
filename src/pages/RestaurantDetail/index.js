@@ -24,6 +24,7 @@ import NetworkWifiIcon from '@material-ui/icons/NetworkWifi';
 import WifiOffIcon from '@material-ui/icons/WifiOff';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
+import { toast } from 'react-toastify';
 import NoParking from '../../images/no_parking.svg';
 import useStyles from './styles';
 import { ModalComponent } from '../../components/Modal';
@@ -52,7 +53,7 @@ export const RestaurantDetail = ({ match }) => {
         const response = await api.get(`/${id}`);
         setRestaurant(response.data.restaurant);
       } catch (error) {
-        console.log(error);
+        toast.error('Cannot show restaurant information');
       }
     };
     fetchRestaurant();
@@ -62,7 +63,7 @@ export const RestaurantDetail = ({ match }) => {
         const response = await api.get(`/reviews/${id}`);
         setReview(response.data.restaurantBookingReviews);
       } catch (error) {
-        console.log(error);
+        toast.error('Cannot show restaurant reviews');
       }
     };
 
@@ -86,7 +87,7 @@ export const RestaurantDetail = ({ match }) => {
 
       fetchImages();
     } catch (error) {
-      console.log(error);
+      toast.error('Cannot show restaurant images');
     }
   }, [restaurant]);
 
