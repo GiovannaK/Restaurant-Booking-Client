@@ -5,15 +5,13 @@
 import {
   AppBar, Box, Grid, Tab, Tabs, Toolbar,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { CannotFound } from '../../components/CannotFound';
 import { CardComponent } from '../../components/CardComponent';
 import { Loading } from '../../components/Loading';
 import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
 import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
-import { api } from '../../services/api';
 
 export const Home = () => {
   const { restaurants, category, loading } = useRestaurant(RestaurantContext);

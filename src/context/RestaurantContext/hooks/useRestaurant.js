@@ -10,11 +10,6 @@ const useRestaurant = () => {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchCategories();
-    fetchAllRestaurants();
-  }, []);
-
   const fetchAllRestaurants = async () => {
     try {
       const response = await api.get('/');
@@ -34,6 +29,11 @@ const useRestaurant = () => {
       toast.error('Cannot show categories');
     }
   };
+
+  useEffect(() => {
+    fetchCategories();
+    fetchAllRestaurants();
+  }, []);
 
   return {
     restaurants, category, loading,

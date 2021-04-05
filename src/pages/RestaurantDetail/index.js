@@ -30,10 +30,12 @@ import useStyles from './styles';
 import { ModalComponent } from '../../components/Modal';
 import { RestaurantDetailReview } from '../../components/RestaurantDetailReview';
 import { api } from '../../services/api';
+import { Loading } from '../../components/Loading';
 
 export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
   const [restaurant, setRestaurant] = useState({});
+  const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const [review, setReview] = useState([]);
   const { id } = match.params;
@@ -52,6 +54,7 @@ export const RestaurantDetail = ({ match }) => {
       try {
         const response = await api.get(`/${id}`);
         setRestaurant(response.data.restaurant);
+        setLoading(false);
       } catch (error) {
         toast.error('Cannot show restaurant information');
       }
@@ -62,6 +65,7 @@ export const RestaurantDetail = ({ match }) => {
       try {
         const response = await api.get(`/reviews/${id}`);
         setReview(response.data.restaurantBookingReviews);
+        setLoading(false);
       } catch (error) {
         toast.error('Cannot show restaurant reviews');
       }
@@ -82,6 +86,7 @@ export const RestaurantDetail = ({ match }) => {
             });
           });
           setImages(imagesSlider);
+          setLoading(false);
         }
       };
 
@@ -93,77 +98,81 @@ export const RestaurantDetail = ({ match }) => {
 
   return (
     <>
-      <Toolbar />
-      <Box className={classes.box}>
-        <Grid container>
-          <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
-            <ImageGallery items={images} />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-            <Card variant="outlined" style={{ height: '100%', overflow: 'auto' }}>
-              <CardContent align="center">
-                <Typography variant="h4" className={classes.titleTypography}>
-                  {restaurant.companyName}
-                </Typography>
-                <CardActions className={classes.cardActions}>
-                  <Tooltip title="capacidade">
-                    <Badge badgeContent={restaurant.capacity} color="primary">
-                      <GroupIcon color="primary" />
-                    </Badge>
-                  </Tooltip>
-                  {restaurant.isParking
-                    ? <DirectionsCarIcon color="primary" /> : (
-                      <img
-                        src={NoParking}
-                        alt="no parking"
-                        className={classes.icon}
-                        color="primary"
-                      />
-                    )}
-                  {restaurant.isWifi ? <NetworkWifiIcon color="primary" />
-                    : <WifiOffIcon color="primary" />}
-                </CardActions>
-                <Divider />
-                <CardActions className={classes.contact}>
-                  <div>
-                    <PhoneIcon />
-                    <Typography variant="h6">
-                      {restaurant.phone}
+      {loading ? (<Loading />) : (
+        <>
+          <Toolbar />
+          <Box className={classes.box}>
+            <Grid container>
+              <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+                <ImageGallery items={images} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <Card variant="outlined" style={{ height: '100%', overflow: 'auto' }}>
+                  <CardContent align="center">
+                    <Typography variant="h4" className={classes.titleTypography}>
+                      {restaurant.companyName}
                     </Typography>
-                  </div>
-                  <div>
-                    <RoomIcon />
-                    <Typography variant="h6">
-                      {restaurant.address}
-                    </Typography>
-                  </div>
-                </CardActions>
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  onClick={handleOpen}
-                  className={classes.button}
-                >
-                  Ver horário de funcionamento
-                </Button>
-                <ModalComponent
-                  openModal={openModal}
-                  handleClose={handleClose}
-                  restaurant={restaurant}
-                />
-                <Button
-                  className={classes.button}
-                  color="primary"
-                  variant="contained"
-                >
-                  Reservar mesa
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-        <RestaurantDetailReview review={review} />
-      </Box>
+                    <CardActions className={classes.cardActions}>
+                      <Tooltip title="capacidade">
+                        <Badge badgeContent={restaurant.capacity} color="primary">
+                          <GroupIcon color="primary" />
+                        </Badge>
+                      </Tooltip>
+                      {restaurant.isParking
+                        ? <DirectionsCarIcon color="primary" /> : (
+                          <img
+                            src={NoParking}
+                            alt="no parking"
+                            className={classes.icon}
+                            color="primary"
+                          />
+                        )}
+                      {restaurant.isWifi ? <NetworkWifiIcon color="primary" />
+                        : <WifiOffIcon color="primary" />}
+                    </CardActions>
+                    <Divider />
+                    <CardActions className={classes.contact}>
+                      <div>
+                        <PhoneIcon />
+                        <Typography variant="h6">
+                          {restaurant.phone}
+                        </Typography>
+                      </div>
+                      <div>
+                        <RoomIcon />
+                        <Typography variant="h6">
+                          {restaurant.address}
+                        </Typography>
+                      </div>
+                    </CardActions>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={handleOpen}
+                      className={classes.button}
+                    >
+                      Ver horário de funcionamento
+                    </Button>
+                    <ModalComponent
+                      openModal={openModal}
+                      handleClose={handleClose}
+                      restaurant={restaurant}
+                    />
+                    <Button
+                      className={classes.button}
+                      color="primary"
+                      variant="contained"
+                    >
+                      Reservar mesa
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            <RestaurantDetailReview review={review} />
+          </Box>
+        </>
+      )}
     </>
   );
 };
