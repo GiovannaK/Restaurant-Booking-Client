@@ -12,11 +12,13 @@ const useStyles = makeStyles((lightTheme) => ({
   },
   button: {
     color: lightTheme.palette.primary.dark,
-    minWidth: '10rem',
-    marginLeft: lightTheme.spacing(3),
+    marginLeft: lightTheme.spacing(10),
   },
   icon: {
     color: lightTheme.palette.primary.main,
+  },
+  menu: {
+    marginRight: lightTheme.spacing(10),
   },
   title: {
     flexGrow: 1,

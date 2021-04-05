@@ -30,12 +30,12 @@ export const Dashboard = () => {
           textColor="secondary"
           onChange={handleSelectedTab}
         >
-          <Tab label="Meus dados" />
           <Tab label="Minhas reservas" />
+          <Tab label="Meus dados" />
         </Tabs>
       </AppBar>
-      {selectedTab === 0 && <UserProfile />}
-      {selectedTab === 1 && <UserBookings />}
+      {selectedTab === 0 && <UserBookings />}
+      {selectedTab === 1 && <UserProfile />}
     </>
   );
 };

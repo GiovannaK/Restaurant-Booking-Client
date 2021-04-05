@@ -17,6 +17,13 @@ const useStyles = makeStyles((lightTheme) => ({
     textAlign: 'center',
     color: lightTheme.palette.primary.dark,
   },
+  typography: {
+    color: lightTheme.palette.primary.main,
+    textTransform: 'uppercase',
+  },
+  accordion: {
+    background: lightTheme.palette.secondary.opacity,
+  },
 }));
 
 export default useStyles;
