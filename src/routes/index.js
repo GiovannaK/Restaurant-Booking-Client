@@ -33,15 +33,9 @@ export const Routes = () => {
       <Route exact path="/forgot_password" component={ForgotPassword} />
       <Route exact path="/reset_password/:resetToken" component={ResetPassword} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      {!user.isPartner ? (
-        <PrivateRoute exact path="/user_bookings" component={UserBookings} />
-
-      ) : (
-        <PrivateRoute exact path="/user_restaurants" component={UserRestaurants} />
-
-      )}
+      <PrivateRoute exact path="/user_bookings" component={UserBookings} />
+      <PrivateRoute exact path="/user_restaurants" component={UserRestaurants} />
       <Route path="*" component={Page404} />
-
     </Switch>
   );
 };
