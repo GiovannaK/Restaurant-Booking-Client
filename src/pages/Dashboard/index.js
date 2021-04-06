@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {
-  AppBar, Tab, Tabs, Toolbar,
+  AppBar, Box, Tab, Tabs, Toolbar,
 } from '@material-ui/core';
-import { TabPanel } from '@material-ui/lab';
 import React, { useState } from 'react';
 import useProfile from '../../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
@@ -30,12 +29,29 @@ export const Dashboard = () => {
           textColor="secondary"
           onChange={handleSelectedTab}
         >
-          <Tab label="Minhas reservas" />
-          <Tab label="Meus dados" />
+          {!user.isPartner ? (
+            <div>
+              <Tab label="Minhas reservas" />
+              <Tab label="Meus dados" />
+            </div>
+
+          ) : (
+            <div>
+              <Tab label="Restaurantes Cadastrados" />
+              <Tab label="Meus dados" />
+            </div>
+          )}
         </Tabs>
       </AppBar>
-      {selectedTab === 0 && <UserBookings />}
-      {selectedTab === 1 && <UserProfile />}
+      <Box>
+        {selectedTab === 0 && <UserBookings />}
+      </Box>
+      <Box>
+        {selectedTab === 1 && <UserProfile />}
+      </Box>
+      <Box>
+        {selectedTab === 2 && 'Restaurantes'}
+      </Box>
     </>
   );
 };
