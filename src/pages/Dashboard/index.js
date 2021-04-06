@@ -1,57 +1,43 @@
 /* eslint-disable no-unused-vars */
 import {
-  AppBar, Box, Tab, Tabs, Toolbar,
+  AppBar, Box, Button, Fab, Tab, Tabs, Toolbar, Tooltip, Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 import useProfile from '../../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
-import { UserBookings } from '../UserBookings';
 import { UserProfile } from '../UserProfile';
 import useStyles from './styles';
 
 export const Dashboard = () => {
   const classes = useStyles();
   const { user } = useProfile(ProfileContext);
-  const [selectedTab, setSelectedTab] = useState(0);
-
-  const handleSelectedTab = (e, newValue) => {
-    setSelectedTab(newValue);
-  };
 
   return (
     <>
       <Toolbar />
-      <AppBar position="static">
-        <Tabs
-          variant="scrollable"
-          value={selectedTab}
-          scrollButtons="auto"
-          textColor="secondary"
-          onChange={handleSelectedTab}
-        >
-          {!user.isPartner ? (
-            <div>
-              <Tab label="Minhas reservas" />
-              <Tab label="Meus dados" />
-            </div>
+      <UserProfile />
+      {!user.isPartner ? (
+        <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
+          <Tooltip title={<Typography variant="h6">Reservas</Typography>}>
+            <Fab color="primary" aria-label="add" className={classes.fab}>
+              <MenuBookIcon />
+            </Fab>
+          </Tooltip>
+        </Link>
 
-          ) : (
-            <div>
-              <Tab label="Restaurantes Cadastrados" />
-              <Tab label="Meus dados" />
-            </div>
-          )}
-        </Tabs>
-      </AppBar>
-      <Box>
-        {selectedTab === 0 && <UserBookings />}
-      </Box>
-      <Box>
-        {selectedTab === 1 && <UserProfile />}
-      </Box>
-      <Box>
-        {selectedTab === 2 && 'Restaurantes'}
-      </Box>
+      ) : (
+
+        <Link to="/user_restaurants" style={{ textDecoration: 'none' }}>
+          <Tooltip title={<Typography variant="h6">Restaurantes</Typography>}>
+            <Fab color="primary" aria-label="add" className={classes.fab}>
+              <RestaurantIcon />
+            </Fab>
+          </Tooltip>
+        </Link>
+      )}
     </>
   );
 };

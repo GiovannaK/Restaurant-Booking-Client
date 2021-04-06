@@ -28,7 +28,7 @@ export const UserBookings = () => {
             ) : (
               <>
                 <Toolbar />
-                <Box>
+                <Box className={classes.box}>
                   <Grid container justify="center" spacing={2}>
                     {userBookings.map((booking) => (
                       <Grid item xs={12} sm={12} md={6} lg={6} xl={6} key={booking._id}>

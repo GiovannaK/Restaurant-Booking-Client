@@ -2,6 +2,9 @@
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((lightTheme) => ({
+  box: {
+    marginTop: lightTheme.spacing(5),
+  },
   typography: {
     marginTop: lightTheme.spacing(2),
     marginBottom: lightTheme.spacing(2),
