@@ -2,11 +2,46 @@
 import {
   Box, Button, Card, CardContent, Grid, TextField, Toolbar, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import { isEmail } from 'validator';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import useStyles from './styles';
+import { api } from '../../services/api';
 
 export const ForgotPassword = () => {
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    let formErrors = false;
+
+    if (!isEmail(email)) {
+      formErrors = true;
+      setEmail('');
+      toast.info('E-mail inválido');
+    }
+
+    if (formErrors) return;
+
+    try {
+      const { data } = await api.post(
+        '/session/forgot_password',
+        { email },
+        config,
+      );
+      toast.info(`Um e-mail foi enviado para ${email}`);
+    } catch (error) {
+      toast.error('Falha ao enviar e-mail');
+    }
+  };
   return (
     <>
       <Toolbar />
@@ -23,7 +58,7 @@ export const ForgotPassword = () => {
                   do e-mail digitado abaixo.
                 </Typography>
                 <Toolbar />
-                <form>
+                <form onSubmit={handleSubmit}>
                   <TextField
                     id="outlined-email-input"
                     label="E-mail"
@@ -31,6 +66,8 @@ export const ForgotPassword = () => {
                     placeholder="Seu e-mail"
                     autoComplete="current-email"
                     variant="outlined"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     style={{ width: '100%' }}
                     InputLabelProps={{
                       shrink: true,

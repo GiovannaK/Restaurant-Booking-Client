@@ -31,7 +31,7 @@ export const Routes = () => {
       <Route exact path="/register_as_partner" component={RegisterPartner} />
       <Route exact path="/account_confirmation/:confirmationToken" component={AccountConfirmation} />
       <Route exact path="/forgot_password" component={ForgotPassword} />
-      <Route exact path="/reset_password" component={ResetPassword} />
+      <Route exact path="/reset_password/:resetToken" component={ResetPassword} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       {!user.isPartner ? (
         <PrivateRoute exact path="/user_bookings" component={UserBookings} />

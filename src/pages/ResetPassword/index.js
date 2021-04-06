@@ -2,11 +2,58 @@
 import {
   Box, Button, Card, CardContent, Grid, TextField, Toolbar, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import history from '../../routes/history';
+import { api } from '../../services/api';
 import useStyles from './styles';
 
-export const ResetPassword = () => {
+export const ResetPassword = ({ match }) => {
   const classes = useStyles();
+  const { resetToken } = match.params;
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    let formErrors = false;
+
+    if (password.length < 8 || password.length > 255) {
+      formErrors = true;
+      setPassword('');
+      toast.info('A senha deve ter entre 8 e 255 caracteres');
+    }
+
+    if (confirmPassword !== password) {
+      formErrors = true;
+      setPassword('');
+      setConfirmPassword('');
+      toast.info('Senhas não conferem');
+    }
+
+    if (formErrors) return;
+
+    try {
+      const { data } = await api.put(
+        `/session/reset_password/${resetToken}`,
+        { password },
+        config,
+      );
+      toast.info('Senha alterada com sucesso');
+      history.push('/login');
+    } catch (error) {
+      console.log(error);
+      toast.error('Ocorreu um erro ao alterar a senha');
+    }
+  };
+
   return (
     <>
       <Toolbar />
@@ -19,7 +66,7 @@ export const ResetPassword = () => {
                   Altere sua senha
                 </Typography>
                 <Toolbar />
-                <form>
+                <form onSubmit={handleSubmit}>
                   <TextField
                     id="outlined-password-input"
                     label="Nova Senha"
@@ -27,6 +74,8 @@ export const ResetPassword = () => {
                     placeholder="Nova senha..."
                     autoComplete="current-password"
                     variant="outlined"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     style={{ width: '100%' }}
                     InputLabelProps={{
                       shrink: true,
@@ -41,6 +90,8 @@ export const ResetPassword = () => {
                     placeholder="Confirme a nova senha..."
                     autoComplete="current-password"
                     variant="outlined"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     style={{ width: '100%' }}
                     InputLabelProps={{
                       shrink: true,
