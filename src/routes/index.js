@@ -21,7 +21,7 @@ export const Routes = () => (
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/register_as_partner" component={RegisterPartner} />
-    <Route exact path="/account_confirmation" component={AccountConfirmation} />
+    <Route exact path="/account_confirmation/:confirmationToken" component={AccountConfirmation} />
     <Route exact path="/forgot_password" component={ForgotPassword} />
     <Route exact path="/reset_password" component={ResetPassword} />
     <PrivateRoute exact path="/dashboard" component={Dashboard} />

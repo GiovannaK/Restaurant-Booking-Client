@@ -2,10 +2,25 @@ import {
   Box, Button, Card, CardContent, Grid, Toolbar, Typography,
 } from '@material-ui/core';
 import React from 'react';
+import { toast } from 'react-toastify';
+import history from '../../routes/history';
+import { api } from '../../services/api';
 import useStyles from './styles';
 
-export const AccountConfirmation = () => {
+export const AccountConfirmation = ({ match }) => {
   const classes = useStyles();
+  const { confirmationToken } = match.params;
+
+  const handleAccountConfirmation = async () => {
+    try {
+      await api.post(`/session/account_confirmation/${confirmationToken}`);
+      toast.info('Sua conta foi verificada com sucesso.');
+      history.push('/login');
+    } catch (error) {
+      toast.error('Não foi possível verificar sua conta.');
+    }
+  };
+
   return (
     <>
       <Toolbar />
@@ -28,6 +43,7 @@ export const AccountConfirmation = () => {
                   variant="contained"
                   style={{ width: '100%' }}
                   type="submit"
+                  onClick={handleAccountConfirmation}
                 >
                   Ativar minha conta
                 </Button>
