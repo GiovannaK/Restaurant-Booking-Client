@@ -34,7 +34,6 @@ export const Routes = () => {
       <Route exact path="/reset_password/:resetToken" component={ResetPassword} />
       <PrivateRoute exact path="/user_restaurants" component={UserRestaurants} />
       <PrivateRoute exact path="/user_bookings" component={UserBookings} />
-
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <Route path="" component={Page404} />
     </Switch>
