@@ -17,6 +17,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DrawerComponent } from '../DrawerComponent';
 import useStyles from './styles';
 import { AuthContext } from '../../context/AuthContext/authContext';
@@ -78,7 +79,14 @@ export const Header = () => {
                   onClick={handleOpen}
                   className={classes.menu}
                 >
-                  Menu
+                  <ListItemText>
+                    <Typography variant="h6" color="primary">
+                      Navegar
+                    </Typography>
+                  </ListItemText>
+                  <ListItemIcon>
+                    <ExpandMoreIcon color="primary" />
+                  </ListItemIcon>
                 </Button>
                 <Menu
                   anchorEl={anchorEl}
