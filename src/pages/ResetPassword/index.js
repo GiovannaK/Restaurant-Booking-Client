@@ -49,7 +49,6 @@ export const ResetPassword = ({ match }) => {
       toast.info('Senha alterada com sucesso');
       history.push('/login');
     } catch (error) {
-      console.log(error);
       toast.error('Ocorreu um erro ao alterar a senha');
     }
   };

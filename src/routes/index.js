@@ -32,10 +32,11 @@ export const Routes = () => {
       <Route exact path="/account_confirmation/:confirmationToken" component={AccountConfirmation} />
       <Route exact path="/forgot_password" component={ForgotPassword} />
       <Route exact path="/reset_password/:resetToken" component={ResetPassword} />
-      <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      <PrivateRoute exact path="/user_bookings" component={UserBookings} />
       <PrivateRoute exact path="/user_restaurants" component={UserRestaurants} />
-      <Route path="*" component={Page404} />
+      <PrivateRoute exact path="/user_bookings" component={UserBookings} />
+
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <Route path="" component={Page404} />
     </Switch>
   );
 };
