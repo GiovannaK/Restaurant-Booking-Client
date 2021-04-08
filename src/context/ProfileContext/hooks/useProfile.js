@@ -86,6 +86,7 @@ const useProfile = () => {
       try {
         const response = await api.get(`/restaurant/${id}`, {}, config);
         setUserRestaurant(response.data.restaurant);
+        setLoading(false);
       } catch (error) {
         toast.error('Cannot show restaurant information');
       }

@@ -29,10 +29,11 @@ const useRestaurant = () => {
       toast.error('Cannot show categories');
     }
   };
-
+  useEffect(() => {
+    fetchAllRestaurants();
+  }, []);
   useEffect(() => {
     fetchCategories();
-    fetchAllRestaurants();
   }, []);
 
   return {
