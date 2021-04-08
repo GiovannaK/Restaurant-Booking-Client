@@ -27,7 +27,6 @@ export const Home = () => {
   };
   const handleSelectedTab = (e, newValue) => {
     setSelectedTab(newValue);
-    console.log(newValue);
   };
 
   return (

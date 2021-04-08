@@ -12,12 +12,6 @@ const useProfile = () => {
   const [userRestaurant, setUserRestaurant] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchUserInfo();
-    fetchUserBookings();
-    fetchUserRestaurants();
-  }, []);
-
   const fetchUserInfo = async () => {
     const token = await localStorage.getItem('authToken');
 
@@ -85,6 +79,7 @@ const useProfile = () => {
       };
       try {
         const response = await api.get(`/restaurant/${id}`, {}, config);
+        localStorage.setItem('userRestaurantDetail', JSON.stringify(response.data.restaurant));
         setUserRestaurant(response.data.restaurant);
         setLoading(false);
       } catch (error) {
@@ -111,6 +106,12 @@ const useProfile = () => {
       toast.error('Cannot update user information');
     }
   };
+
+  useEffect(() => {
+    fetchUserInfo();
+    fetchUserBookings();
+    fetchUserRestaurants();
+  }, []);
 
   return {
     user,

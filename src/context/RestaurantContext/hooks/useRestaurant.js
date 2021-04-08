@@ -29,6 +29,32 @@ const useRestaurant = () => {
       toast.error('Cannot show categories');
     }
   };
+
+  const updateRestaurantInfo = async (id, companyName, restaurantCnpj,
+    phone, capacity, address, isWifi, isParking) => {
+    const token = await localStorage.getItem('authToken');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await api.put(`/restaurant/${id}`, {
+        companyName,
+        restaurantCnpj,
+        phone,
+        capacity,
+        address,
+        isWifi,
+        isParking,
+      }, config);
+    } catch (error) {
+      console.log(error);
+      toast.error('Cannot update informations');
+    }
+  };
+
   useEffect(() => {
     fetchAllRestaurants();
   }, []);
@@ -37,7 +63,7 @@ const useRestaurant = () => {
   }, []);
 
   return {
-    restaurants, category, loading,
+    restaurants, category, loading, updateRestaurantInfo,
   };
 };
 

@@ -9,6 +9,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  CardMedia,
+  Checkbox,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -20,46 +23,82 @@ import {
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { cnpj } from 'cpf-cnpj-validator';
+import { TonalitySharp } from '@material-ui/icons';
+import CloseIcon from '@material-ui/icons/Close';
 import useProfile from '../../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
 import { api } from '../../services/api';
 import useStyles from './styles';
 import { Loading } from '../../components/Loading';
+import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
+import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
 
 export const UserRestaurantDetail = ({ match }) => {
   const classes = useStyles();
   const {
     fetchRestaurantDetail, userRestaurant, userRestaurants, loading,
   } = useProfile(ProfileContext);
-  const [restaurantName, setRestaurantName] = useState('');
+  const { updateRestaurantInfo } = useRestaurant(RestaurantContext);
+  const [companyName, setCompanyName] = useState('');
   const [restaurantCnpj, setRestaurantCnpj] = useState('');
-  const [mobilePhone, setMobilePhone] = useState(0);
   const [phone, setPhone] = useState('');
   const [capacity, setCapacity] = useState(0);
   const [address, setAddress] = useState('');
-  const [businessDayInitialH, setBusinnesDayInitialH] = useState(0);
-  const [businessDayInitialM, setBusinnesDayInitialM] = useState(0);
-  const [businessDayFinalH, setBusinessDayFinalH] = useState(0);
-  const [businessDayFinalM, setBusinessDayFinalM] = useState(0);
-  const [weekendInitialH, setWeekendInitialH] = useState(0);
-  const [weekendInitalM, setWeekendInitialM] = useState(0);
-  const [weekendFinalH, setWeekendFinalH] = useState(0);
-  const [weekendFinalM, setWeekendFinalM] = useState(0);
+  const [isParking, setIsParking] = useState(false);
+  const [isWifi, setIsWifi] = useState(false);
 
   const { id } = match.params;
 
+  const getCurrentRestaurantInfo = async () => {
+    const getUserRestaurant = await JSON.parse(localStorage.getItem('userRestaurantDetail'));
+    fetchRestaurantDetail(id);
+    setCompanyName(getUserRestaurant.companyName);
+    setRestaurantCnpj(getUserRestaurant.cnpj);
+    setPhone(getUserRestaurant.phone);
+    setCapacity(getUserRestaurant.capacity);
+    setAddress(getUserRestaurant.address);
+    setIsWifi(getUserRestaurant.isWifi);
+    setIsWifi(getUserRestaurant.isParking);
+  };
   useEffect(() => {
-    const getCurrentRestaurantInfo = async () => {
-      fetchRestaurantDetail(id);
-      setRestaurantName(userRestaurant.companyName);
-      setRestaurantCnpj(userRestaurant.cnpj);
-      setMobilePhone(userRestaurant.mobilePhone);
-      setPhone(userRestaurant.phone);
-      setCapacity(userRestaurant.capacity);
-      setAddress(userRestaurant.address);
-    };
     getCurrentRestaurantInfo();
   }, [userRestaurants]);
+
+  const handleCheckWifi = (e) => {
+    setIsWifi(e.target.checked);
+  };
+
+  const handleCheckParking = (e) => {
+    setIsParking(e.target.checked);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let formErrors = false;
+    if (companyName.length < 3 || companyName.length > 255) {
+      formErrors = true;
+      toast.error('Nome do restauarnte deve ter entre 3 e 255 caracteres');
+    }
+    if (!cnpj.isValid(restaurantCnpj)) {
+      formErrors = true;
+      toast.error('CNPJ inválido');
+    }
+    if (phone.length < 10) {
+      formErrors = true;
+      toast.error('Telefone inválido');
+    }
+    if (capacity < 1) {
+      formErrors = true;
+      toast.error('Seu restaurante deve ter capacidade para pelo menos 1 cliente');
+    }
+
+    if (formErrors) return;
+
+    updateRestaurantInfo(id, companyName, restaurantCnpj, phone,
+      capacity, address, isWifi, isParking);
+    toast.info('Informações atualizadas com sucesso');
+  };
 
   return (
     <>
@@ -79,7 +118,7 @@ export const UserRestaurantDetail = ({ match }) => {
                       Atualizar Restaurante
                     </Typography>
                     <Toolbar />
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                           <TextField
@@ -87,7 +126,8 @@ export const UserRestaurantDetail = ({ match }) => {
                             label="Nome do Restaurante"
                             type="text"
                             placeholder="Nome do restaurante"
-                            value={restaurantName}
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
                             style={{ width: '100%' }}
                             InputLabelProps={{
                               shrink: true,
@@ -102,6 +142,7 @@ export const UserRestaurantDetail = ({ match }) => {
                             type="text"
                             placeholder="CNPJ"
                             value={restaurantCnpj}
+                            onChange={(e) => setRestaurantCnpj(e.target.value)}
                             style={{ width: '100%' }}
                             InputLabelProps={{
                               shrink: true,
@@ -116,6 +157,7 @@ export const UserRestaurantDetail = ({ match }) => {
                             type="text"
                             placeholder="Telefone"
                             value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             style={{ width: '100%' }}
                             InputLabelProps={{
                               shrink: true,
@@ -130,6 +172,7 @@ export const UserRestaurantDetail = ({ match }) => {
                             type="number"
                             placeholder="Quantos clientes cabem?"
                             value={capacity}
+                            onChange={(e) => setCapacity(e.target.value)}
                             style={{ width: '100%' }}
                             InputLabelProps={{
                               shrink: true,
@@ -143,6 +186,7 @@ export const UserRestaurantDetail = ({ match }) => {
                             label="Endereço"
                             type="text"
                             placeholder="Ex: Rua aaaaa, 6748, cidade, estado"
+                            onChange={(e) => setAddress(e.target.value)}
                             value={address}
                             style={{ width: '100%' }}
                             InputLabelProps={{
@@ -151,150 +195,27 @@ export const UserRestaurantDetail = ({ match }) => {
                             }}
                           />
                         </Grid>
+                        <Grid item xs={6} sm={6} md={2} lg={4} xl={4}>
+                          <FormControlLabel
+                            value="top"
+                            control={<Checkbox color="primary" className={classes.checkbox} />}
+                            label="Tem wifi?"
+                            checked={isWifi}
+                            onChange={handleCheckWifi}
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={2} lg={4} xl={4}>
+                          <FormControlLabel
+                            value="top"
+                            control={<Checkbox color="primary" className={classes.checkbox} />}
+                            checked={isParking}
+                            onChange={handleCheckParking}
+                            label="Tem estacionamento?"
+                          />
+                        </Grid>
                       </Grid>
                       <Toolbar />
-                      <Accordion variant="outlined">
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                          <Typography variant="h6" className={classes.typography}>
-                            Editar Horários
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                              <Typography variant="h6" color="primary">
-                                DIAS ÚTEIS
-                              </Typography>
-                              <Toolbar />
-                              <Grid container spacing={2}>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Hora Inicial"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    placeholder="0 - 23"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Minutos"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    placeholder="0 - 59"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Hora Final"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    placeholder="0 - 23"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Minutos"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    placeholder="0 - 59"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                              <Typography variant="h6" color="primary">
-                                FIM DE SEMANA
-                              </Typography>
-                              <Toolbar />
-                              <Grid container spacing={2}>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Hora Inicial"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    placeholder="0 - 23"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Minutos"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    placeholder="0 - 59"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Hora Final"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    placeholder="0 - 23"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                  <TextField
-                                    id="outlined-firstName-input"
-                                    label="Minutos"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    placeholder="0 - 59"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                      className: classes.inputLabel,
-                                    }}
-                                  />
-                                </Grid>
-                              </Grid>
-                              <Toolbar />
-                            </Grid>
-                          </Grid>
-                        </AccordionDetails>
-                      </Accordion>
-                      <Toolbar />
-                      <Button variant="contained" color="primary" style={{ width: '100%' }}>
+                      <Button type="submit" variant="contained" color="primary" style={{ width: '100%' }}>
                         Atualizar
                       </Button>
                     </form>

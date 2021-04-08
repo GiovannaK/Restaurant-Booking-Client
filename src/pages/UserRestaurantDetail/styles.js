@@ -18,6 +18,9 @@ const useStyles = makeStyles((lightTheme) => ({
   card: {
     minHeight: '55vh',
   },
+  checkbox: {
+    color: 'black',
+  },
 }));
 
 export default useStyles;
