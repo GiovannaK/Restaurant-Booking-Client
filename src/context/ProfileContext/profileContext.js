@@ -5,12 +5,24 @@ const ProfileContext = createContext();
 
 const ProfileProvider = ({ children }) => {
   const {
-    user, userBookings, loading, updateUserInfo, userRestaurants,
+    user,
+    userBookings,
+    loading,
+    updateUserInfo,
+    userRestaurants,
+    fetchRestaurantDetail,
+    userRestaurant,
   } = useProfile();
 
   return (
     <ProfileContext.Provider value={{
-      user, userBookings, loading, updateUserInfo, userRestaurants,
+      user,
+      userBookings,
+      loading,
+      updateUserInfo,
+      userRestaurants,
+      fetchRestaurantDetail,
+      userRestaurant,
     }}
     >
       {children}

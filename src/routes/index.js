@@ -18,6 +18,7 @@ import { UserBookings } from '../pages/UserBookings';
 import useProfile from '../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../context/ProfileContext/profileContext';
 import { UserRestaurants } from '../pages/UserRestaurants';
+import { UserRestaurantDetail } from '../pages/UserRestaurantDetail';
 
 export const Routes = () => {
   const { user } = useProfile(ProfileContext);
@@ -33,6 +34,7 @@ export const Routes = () => {
       <Route exact path="/forgot_password" component={ForgotPassword} />
       <Route exact path="/reset_password/:resetToken" component={ResetPassword} />
       <PrivateRoute exact path="/user_restaurants" component={UserRestaurants} />
+      <PrivateRoute exact path="/user_restaurants/:id" component={UserRestaurantDetail} />
       <PrivateRoute exact path="/user_bookings" component={UserBookings} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <Route path="" component={Page404} />

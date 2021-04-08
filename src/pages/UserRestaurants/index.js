@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import AddIcon from '@material-ui/icons/Add';
+import { Link } from 'react-router-dom';
 import { Loading } from '../../components/Loading';
 import { NoUserRestaurants } from '../../components/NoUserRestaurants';
 import { UserRestaurantsCards } from '../../components/UserRestaurantsCards';
@@ -31,7 +32,9 @@ export const UserRestaurants = () => {
               {userRestaurants.map((restaurant) => (
 
                 <Grid item align="center" xs={12} sm={6} md={6} lg={4} xl={4} key={restaurant._id}>
-                  <UserRestaurantsCards key={restaurant._id} restaurant={restaurant} />
+                  <Link to={`/user_restaurants/${restaurant._id}`} style={{ textDecoration: 'none' }}>
+                    <UserRestaurantsCards key={restaurant._id} restaurant={restaurant} />
+                  </Link>
                 </Grid>
               ))}
             </Grid>

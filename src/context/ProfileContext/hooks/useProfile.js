@@ -9,6 +9,7 @@ const useProfile = () => {
   const [user, setUser] = useState([]);
   const [userBookings, setUserBookings] = useState([]);
   const [userRestaurants, setUserRestaurants] = useState([]);
+  const [userRestaurant, setUserRestaurant] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -73,6 +74,24 @@ const useProfile = () => {
     }
   };
 
+  const fetchRestaurantDetail = async (id) => {
+    const token = await localStorage.getItem('authToken');
+
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      try {
+        const response = await api.get(`/restaurant/${id}`, {}, config);
+        setUserRestaurant(response.data.restaurant);
+      } catch (error) {
+        toast.error('Cannot show restaurant information');
+      }
+    }
+  };
+
   const updateUserInfo = async (firstName, lastName, email, phone) => {
     const token = await localStorage.getItem('authToken');
     const config = {
@@ -93,7 +112,13 @@ const useProfile = () => {
   };
 
   return {
-    user, userBookings, loading, updateUserInfo, userRestaurants,
+    user,
+    userBookings,
+    loading,
+    updateUserInfo,
+    userRestaurants,
+    fetchRestaurantDetail,
+    userRestaurant,
   };
 };
 
