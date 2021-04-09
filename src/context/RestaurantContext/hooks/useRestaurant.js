@@ -31,7 +31,7 @@ const useRestaurant = () => {
   };
 
   const updateRestaurantInfo = async (id, companyName, restaurantCnpj,
-    phone, capacity, address, isWifi, isParking) => {
+    phone, capacity, address, isWifi, isParking, isOpen) => {
     const token = await localStorage.getItem('authToken');
     const config = {
       header: {
@@ -48,9 +48,9 @@ const useRestaurant = () => {
         address,
         isWifi,
         isParking,
+        isOpen,
       }, config);
     } catch (error) {
-      console.log(error);
       toast.error('Cannot update informations');
     }
   };

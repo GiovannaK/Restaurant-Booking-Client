@@ -47,8 +47,11 @@ export const UserRestaurantDetail = ({ match }) => {
   const [address, setAddress] = useState('');
   const [isParking, setIsParking] = useState(false);
   const [isWifi, setIsWifi] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { id } = match.params;
+
+  console.log(userRestaurant);
 
   const getCurrentRestaurantInfo = async () => {
     const getUserRestaurant = await JSON.parse(localStorage.getItem('userRestaurantDetail'));
@@ -59,11 +62,13 @@ export const UserRestaurantDetail = ({ match }) => {
     setCapacity(getUserRestaurant.capacity);
     setAddress(getUserRestaurant.address);
     setIsWifi(getUserRestaurant.isWifi);
-    setIsWifi(getUserRestaurant.isParking);
+    setIsParking(getUserRestaurant.isParking);
+    setIsOpen(getUserRestaurant.isOpen);
   };
   useEffect(() => {
     getCurrentRestaurantInfo();
-  }, [userRestaurants]);
+    console.log('hoy');
+  }, [id]);
 
   const handleCheckWifi = (e) => {
     setIsWifi(e.target.checked);
@@ -71,6 +76,10 @@ export const UserRestaurantDetail = ({ match }) => {
 
   const handleCheckParking = (e) => {
     setIsParking(e.target.checked);
+  };
+
+  const handleIsOpen = (e) => {
+    setIsOpen(e.target.checked);
   };
 
   const handleSubmit = async (e) => {
@@ -96,7 +105,7 @@ export const UserRestaurantDetail = ({ match }) => {
     if (formErrors) return;
 
     updateRestaurantInfo(id, companyName, restaurantCnpj, phone,
-      capacity, address, isWifi, isParking);
+      capacity, address, isWifi, isParking, isOpen);
     toast.info('Informações atualizadas com sucesso');
   };
 
@@ -180,7 +189,34 @@ export const UserRestaurantDetail = ({ match }) => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                        <Grid item xs={6} sm={6} md={4} lg={4} xl={4}>
+                          <FormControlLabel
+                            value="top"
+                            control={<Checkbox color="primary" className={classes.checkbox} />}
+                            label="Wifi"
+                            checked={isWifi}
+                            onChange={handleCheckWifi}
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={4} lg={4} xl={3}>
+                          <FormControlLabel
+                            value="top"
+                            control={<Checkbox color="primary" className={classes.checkbox} />}
+                            checked={isParking}
+                            onChange={handleCheckParking}
+                            label="Estacionamento"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={4} lg={4} xl={4}>
+                          <FormControlLabel
+                            value="top"
+                            control={<Checkbox color="primary" className={classes.checkbox} />}
+                            checked={isOpen}
+                            onChange={handleIsOpen}
+                            label="Aberto"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <TextField
                             id="outlined-firstName-input"
                             label="Endereço"
@@ -195,27 +231,13 @@ export const UserRestaurantDetail = ({ match }) => {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={6} sm={6} md={2} lg={4} xl={4}>
-                          <FormControlLabel
-                            value="top"
-                            control={<Checkbox color="primary" className={classes.checkbox} />}
-                            label="Tem wifi?"
-                            checked={isWifi}
-                            onChange={handleCheckWifi}
-                          />
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={2} lg={4} xl={4}>
-                          <FormControlLabel
-                            value="top"
-                            control={<Checkbox color="primary" className={classes.checkbox} />}
-                            checked={isParking}
-                            onChange={handleCheckParking}
-                            label="Tem estacionamento?"
-                          />
-                        </Grid>
                       </Grid>
-                      <Toolbar />
-                      <Button type="submit" variant="contained" color="primary" style={{ width: '100%' }}>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                      >
                         Atualizar
                       </Button>
                     </form>

@@ -19,7 +19,11 @@ const useStyles = makeStyles((lightTheme) => ({
     minHeight: '55vh',
   },
   checkbox: {
-    color: 'black',
+    color: lightTheme.palette.primary.dark,
+  },
+  button: {
+    width: '100%',
+    marginTop: lightTheme.spacing(12),
   },
 }));
 
