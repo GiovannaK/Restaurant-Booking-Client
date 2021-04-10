@@ -8,16 +8,24 @@ import WifiOffIcon from '@material-ui/icons/WifiOff';
 import React from 'react';
 import useStyles from './styles';
 import NoParking from '../../images/no_parking.svg';
+import noPic from '../../images/noPic.png';
 
 export const CardComponent = ({ restaurant }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={restaurant.images[0].url}
-        />
+        {!restaurant.images.length ? (
+          <CardMedia
+            className={classes.media}
+            image={noPic}
+          />
+        ) : (
+          <CardMedia
+            className={classes.media}
+            image={restaurant.images[0].url}
+          />
+        )}
         <CardContent>
           <Typography variant="h5" className={classes.typography}>
             {restaurant.companyName}

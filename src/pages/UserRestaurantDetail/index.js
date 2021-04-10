@@ -51,8 +51,6 @@ export const UserRestaurantDetail = ({ match }) => {
 
   const { id } = match.params;
 
-  console.log(userRestaurant);
-
   const getCurrentRestaurantInfo = async () => {
     const getUserRestaurant = await JSON.parse(localStorage.getItem('userRestaurantDetail'));
     fetchRestaurantDetail(id);
@@ -67,8 +65,7 @@ export const UserRestaurantDetail = ({ match }) => {
   };
   useEffect(() => {
     getCurrentRestaurantInfo();
-    console.log('hoy');
-  }, [id]);
+  }, [userRestaurant._id]);
 
   const handleCheckWifi = (e) => {
     setIsWifi(e.target.checked);

@@ -38,11 +38,13 @@ export const UserRestaurants = () => {
                 </Grid>
               ))}
             </Grid>
-            <Tooltip title={<Typography variant="h6">Adicionar restaurante</Typography>}>
-              <Fab color="primary" aria-label="add" className={classes.fab}>
-                <AddIcon />
-              </Fab>
-            </Tooltip>
+            <Link to="/register_restaurant" style={{ textDecoration: 'none' }}>
+              <Tooltip title={<Typography variant="h6">Adicionar restaurante</Typography>}>
+                <Fab color="primary" aria-label="add" className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
+            </Link>
           </Box>
         ) : (
           <NoUserRestaurants />

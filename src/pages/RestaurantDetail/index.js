@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-expressions */
@@ -31,6 +32,7 @@ import { ModalComponent } from '../../components/Modal';
 import { RestaurantDetailReview } from '../../components/RestaurantDetailReview';
 import { api } from '../../services/api';
 import { Loading } from '../../components/Loading';
+import noPic from '../../images/noPic.png';
 
 export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
@@ -48,6 +50,13 @@ export const RestaurantDetail = ({ match }) => {
   const handleClose = () => {
     setOpenModal(false);
   };
+
+  const dummyImage = [
+    {
+      original: `${noPic}`,
+      thumbnail: `${noPic}`,
+    },
+  ];
 
   useEffect(() => {
     const fetchRestaurant = async () => {
@@ -104,7 +113,11 @@ export const RestaurantDetail = ({ match }) => {
           <Box className={classes.box}>
             <Grid container>
               <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
-                <ImageGallery items={images} />
+                {!images.length ? (
+                  <ImageGallery items={dummyImage} />
+                ) : (
+                  <ImageGallery items={images} />
+                )}
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
                 <Card variant="outlined" style={{ height: '100%', overflow: 'auto' }}>

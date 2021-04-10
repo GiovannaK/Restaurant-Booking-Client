@@ -10,7 +10,6 @@ import { RestaurantContext } from '../../context/RestaurantContext/restaurantCon
 
 export const AllRestaurants = () => {
   const { restaurants, loading } = useRestaurant(RestaurantContext);
-  const [allRestaurants, setAllRestaurants] = useState([]);
   return (
     <>
       {loading ? (

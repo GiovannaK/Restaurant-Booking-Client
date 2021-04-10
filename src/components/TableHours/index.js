@@ -1,5 +1,5 @@
 import {
-  Table, TableBody, TableCell, TableContainer, TableRow,
+  Table, TableBody, TableCell, TableContainer, TableRow, Typography,
 } from '@material-ui/core';
 import React from 'react';
 
@@ -8,32 +8,39 @@ export const TableHours = ({ restaurant }) => (
     <Table>
       <TableBody>
         <TableRow>
-          <TableCell>Dias úteis</TableCell>
-          <TableCell>Fim de semana</TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
-            {restaurant.businessDay.startHours}
-            :
-            {restaurant.businessDay.startMinutes}
+            <Typography variant="h6" color="primary">
+              Dias úteis
+            </Typography>
           </TableCell>
           <TableCell>
-            {restaurant.weekend.startHours}
-            :
-            {restaurant.weekend.startMinutes}
+            <Typography variant="h6" color="primary">
+              Fim de Semana
+            </Typography>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
-            {restaurant.businessDay.endHours}
-            :
-            {restaurant.businessDay.endMinutes}
+            <Typography variant="h6">
+              {restaurant.businessDayStartHours}
+            </Typography>
           </TableCell>
           <TableCell>
-            {restaurant.weekend.endHours}
-            :
-            {restaurant.weekend.endMinutes}
-
+            <Typography variant="h6">
+              {restaurant.weekendStartHours}
+            </Typography>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Typography variant="h6">
+              {restaurant.businessDayFinalHours}
+            </Typography>
+          </TableCell>
+          <TableCell>
+            <Typography variant="h6">
+              {restaurant.weekendFinalHours}
+            </Typography>
           </TableCell>
         </TableRow>
       </TableBody>

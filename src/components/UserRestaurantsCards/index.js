@@ -6,16 +6,24 @@ import {
 import React from 'react';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import useStyles from './styles';
+import noPic from '../../images/noPic.png';
 
 export const UserRestaurantsCards = ({ restaurant }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={restaurant.images[0].url}
-        />
+        {!restaurant.images.length ? (
+          <CardMedia
+            className={classes.media}
+            image={noPic}
+          />
+        ) : (
+          <CardMedia
+            className={classes.media}
+            image={restaurant.images[0].url}
+          />
+        )}
         <CardContent>
           <Typography variant="h5" color="primary">
             {restaurant.companyName}
