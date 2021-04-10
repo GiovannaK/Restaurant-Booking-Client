@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import React from 'react';
+import { NoReview } from '../NoReview';
 import useStyles from './styles';
 
 export const RestaurantDetailReview = ({ review }) => {
@@ -17,28 +18,32 @@ export const RestaurantDetailReview = ({ review }) => {
               Avaliações
             </Typography>
             <Toolbar />
-            {review.map((item) => (
-              <Card variant="outlined" key={item.review._id}>
-                <CardContent>
-                  <CardActions>
-                    <Typography
-                      varian="h5"
-                      className={classes.reviewTypography}
-                    >
-                      {item.user.firstName}
+            {!review.length ? (
+              <NoReview />
+            ) : (
+              review.map((item) => (
+                <Card variant="outlined" key={item.review._id}>
+                  <CardContent>
+                    <CardActions>
+                      <Typography
+                        varian="h5"
+                        className={classes.reviewTypography}
+                      >
+                        {item.user.firstName}
+                      </Typography>
+                    </CardActions>
+                    <Rating
+                      name="read-only"
+                      value={item.review.rating}
+                      readOnly
+                    />
+                    <Typography>
+                      {item.review.comment}
                     </Typography>
-                  </CardActions>
-                  <Rating
-                    name="read-only"
-                    value={item.review.rating}
-                    readOnly
-                  />
-                  <Typography>
-                    {item.review.comment}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))
+            )}
 
           </CardContent>
         </Card>

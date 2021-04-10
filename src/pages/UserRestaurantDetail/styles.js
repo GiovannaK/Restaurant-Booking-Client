@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((lightTheme) => ({
   box: {
-    marginTop: lightTheme.spacing(5),
+    marginTop: lightTheme.spacing(2),
   },
   media: {
     height: 400,
@@ -22,8 +22,8 @@ const useStyles = makeStyles((lightTheme) => ({
     color: lightTheme.palette.primary.dark,
   },
   button: {
+    marginTop: lightTheme.spacing(2),
     width: '100%',
-    marginTop: lightTheme.spacing(12),
   },
 }));
 

@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box, Button, Card, CardContent, Grid, TextField, Toolbar, Typography,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  TextField, Toolbar, Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import {
@@ -12,7 +14,6 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './styles';
 
 export const RegisterRestaurant = () => {
@@ -190,38 +191,16 @@ export const RegisterRestaurant = () => {
                       />
                     </Grid>
                     <Toolbar />
-                    <Accordion style={{ width: '100%' }} variant="outlined">
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                      >
-                        <Typography
-                          variant="h5"
-                          align="center"
-                          className={classes.typography}
-                        >
-                          Adicionar Imagens
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Card style={{ width: '100%' }} variant="outlined" className={classes.card}>
-                          <CardContent>
-                            <Typography align="center" variant="h6">
-                              Arraste as imagens aqui
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </AccordionDetails>
-                    </Accordion>
+                    <Button
+                      type="submit"
+                      style={{ width: '100%' }}
+                      color="primary"
+                      variant="contained"
+                    >
+                      Adicionar
+                    </Button>
                   </Grid>
                   <Toolbar />
-                  <Button
-                    type="submit"
-                    style={{ width: '100%' }}
-                    color="primary"
-                    variant="contained"
-                  >
-                    Adicionar
-                  </Button>
                 </form>
               </CardContent>
             </Card>

@@ -1,38 +1,34 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Card,
-  CardActionArea,
   CardContent,
-  CardMedia,
   Checkbox,
   FormControlLabel,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { cnpj } from 'cpf-cnpj-validator';
-import { TonalitySharp } from '@material-ui/icons';
-import CloseIcon from '@material-ui/icons/Close';
-import useProfile from '../../context/ProfileContext/hooks/useProfile';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
-import { api } from '../../services/api';
 import useStyles from './styles';
 import { Loading } from '../../components/Loading';
 import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
 import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
+import { RestaurantImages } from '../../components/RestaurantImages';
+import useProfile from '../../context/ProfileContext/hooks/useProfile';
 
 export const UserRestaurantDetail = ({ match }) => {
   const classes = useStyles();
@@ -48,6 +44,7 @@ export const UserRestaurantDetail = ({ match }) => {
   const [isParking, setIsParking] = useState(false);
   const [isWifi, setIsWifi] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedTime, setSelectedTime] = useState('');
 
   const { id } = match.params;
 
@@ -77,6 +74,10 @@ export const UserRestaurantDetail = ({ match }) => {
 
   const handleIsOpen = (e) => {
     setIsOpen(e.target.checked);
+  };
+
+  const handleTimeChange = (time) => {
+    setSelectedTime(time);
   };
 
   const handleSubmit = async (e) => {
@@ -228,6 +229,88 @@ export const UserRestaurantDetail = ({ match }) => {
                             }}
                           />
                         </Grid>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                          <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                            <KeyboardTimePicker
+                              margin="normal"
+                              ampm={false}
+                              id="time-picker"
+                              label="Dia útil - Horário Inicial"
+                              value={selectedTime}
+                              onChange={handleTimeChange}
+                              error={false}
+                              keyboardIcon={<AccessTimeIcon color="primary" />}
+                              KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                              }}
+                              style={{ width: '100%' }}
+                              InputLabelProps={{
+                                shrink: true,
+                                className: classes.inputLabel,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                            <KeyboardTimePicker
+                              margin="normal"
+                              ampm={false}
+                              id="time-picker"
+                              label="Dia útil - Horário Final"
+                              value={selectedTime}
+                              onChange={handleTimeChange}
+                              error={false}
+                              keyboardIcon={<AccessTimeIcon color="primary" />}
+                              KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                              }}
+                              style={{ width: '100%' }}
+                              InputLabelProps={{
+                                shrink: true,
+                                className: classes.inputLabel,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                            <KeyboardTimePicker
+                              margin="normal"
+                              ampm={false}
+                              id="time-picker"
+                              label="Fim de semana - Horário Inicial"
+                              value={selectedTime}
+                              onChange={handleTimeChange}
+                              error={false}
+                              keyboardIcon={<AccessTimeIcon color="primary" />}
+                              KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                              }}
+                              style={{ width: '100%' }}
+                              InputLabelProps={{
+                                shrink: true,
+                                className: classes.inputLabel,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                            <KeyboardTimePicker
+                              margin="normal"
+                              ampm={false}
+                              id="time-picker"
+                              label="Fim de semana - Horário Final"
+                              value={selectedTime}
+                              onChange={handleTimeChange}
+                              error={false}
+                              keyboardIcon={<AccessTimeIcon color="primary" />}
+                              KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                              }}
+                              style={{ width: '100%' }}
+                              InputLabelProps={{
+                                shrink: true,
+                                className: classes.inputLabel,
+                              }}
+                            />
+                          </Grid>
+                        </MuiPickersUtilsProvider>
                       </Grid>
                       <Button
                         type="submit"
@@ -238,6 +321,7 @@ export const UserRestaurantDetail = ({ match }) => {
                         Atualizar
                       </Button>
                     </form>
+                    <RestaurantImages />
                   </CardContent>
                 </Card>
               </Grid>
