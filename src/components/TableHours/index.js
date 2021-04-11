@@ -2,6 +2,7 @@ import {
   Table, TableBody, TableCell, TableContainer, TableRow, Typography,
 } from '@material-ui/core';
 import React from 'react';
+import moment from 'moment';
 
 export const TableHours = ({ restaurant }) => (
   <TableContainer style={{ overflow: 'auto' }}>
@@ -22,24 +23,24 @@ export const TableHours = ({ restaurant }) => (
         <TableRow>
           <TableCell>
             <Typography variant="h6">
-              {restaurant.businessDayStartHours}
+              {moment(restaurant.businessDayStartHours).format('HH:mm')}
             </Typography>
           </TableCell>
           <TableCell>
             <Typography variant="h6">
-              {restaurant.weekendStartHours}
+              {moment(restaurant.weekendStartHours).format('HH:mm')}
             </Typography>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <Typography variant="h6">
-              {restaurant.businessDayFinalHours}
+              {moment(restaurant.businessDayFinalHours).format('HH:mm')}
             </Typography>
           </TableCell>
           <TableCell>
             <Typography variant="h6">
-              {restaurant.weekendFinalHours}
+              {moment(restaurant.weekendFinalHours).format('HH:mm')}
             </Typography>
           </TableCell>
         </TableRow>

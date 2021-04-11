@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 import {
   Accordion,
@@ -12,60 +13,70 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
+import { toast } from 'react-toastify';
 import useStyles from './styles';
-import restaurantImage from '../../images/restaurant.jpg';
+import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
+import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
 
-export const RestaurantImages = () => {
+export const RestaurantImages = ({ images, setImages }) => {
+  const { deleteRestaurantImages } = useRestaurant(RestaurantContext);
   const classes = useStyles();
+
+  const handleDeleteRestaurantImages = async (id) => {
+    try {
+      await deleteRestaurantImages(id);
+      setImages(images.filter((image) => image._id !== id));
+    } catch (error) {
+      toast.error('Cannot delete image');
+    }
+  };
 
   return (
     <>
-      <Accordion style={{ width: '100%' }} variant="outlined">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-        >
-          <Typography
-            variant="h5"
-            align="center"
-            className={classes.typography}
+      {!images.length ? (
+        <></>
+      ) : (
+        <Accordion style={{ width: '100%' }} variant="outlined">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
           >
-            Imagens Adicionadas
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container>
-            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-              <Card variant="outlined" className={classes.zoom}>
-                <CardContent>
-                  <CloseIcon color="primary" className={classes.icon} />
-                  <CardActionArea>
-                    <CardMedia
-                      image={restaurantImage}
-                      className={classes.media}
-                    />
-                  </CardActionArea>
-                </CardContent>
-              </Card>
+            <Typography
+              variant="h5"
+              align="center"
+              className={classes.typography}
+            >
+              Imagens Adicionadas
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container>
+              {images.map((image) => (
+
+                <Grid item xs={6} sm={6} md={4} lg={3} xl={3} key={image._id}>
+                  <Card variant="outlined" className={classes.zoom}>
+                    <CardContent>
+                      <CloseIcon
+                        color="primary"
+                        className={classes.icon}
+                        onClick={() => handleDeleteRestaurantImages(image._id)}
+                      />
+                      <CardActionArea>
+                        <CardMedia
+                          image={image.url}
+                          className={classes.media}
+                        />
+                      </CardActionArea>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-            <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-              <Card variant="outlined" className={classes.zoom}>
-                <CardContent>
-                  <CloseIcon color="primary" className={classes.icon} />
-                  <CardActionArea>
-                    <CardMedia
-                      image={restaurantImage}
-                      className={classes.media}
-                    />
-                  </CardActionArea>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+          </AccordionDetails>
+        </Accordion>
+      )}
       <Accordion style={{ width: '100%' }} variant="outlined">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

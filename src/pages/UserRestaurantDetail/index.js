@@ -16,7 +16,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
 } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from '@date-io/moment';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -44,7 +44,11 @@ export const UserRestaurantDetail = ({ match }) => {
   const [isParking, setIsParking] = useState(false);
   const [isWifi, setIsWifi] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTime, setSelectedTime] = useState('');
+  const [businessDayStartHours, setBusinessDayStartHours] = useState('');
+  const [businessDayFinalHours, setBusinessDayFinalHours] = useState('');
+  const [weekendStartHours, setWeekendStartHours] = useState('');
+  const [weekendFinalHours, setWeekendFinalHours] = useState('');
+  const [images, setImages] = useState([]);
 
   const { id } = match.params;
 
@@ -59,9 +63,15 @@ export const UserRestaurantDetail = ({ match }) => {
     setIsWifi(getUserRestaurant.isWifi);
     setIsParking(getUserRestaurant.isParking);
     setIsOpen(getUserRestaurant.isOpen);
+    setBusinessDayStartHours(getUserRestaurant.businessDayStartHours);
+    setBusinessDayFinalHours(getUserRestaurant.businessDayFinalHours);
+    setWeekendStartHours(getUserRestaurant.weekendStartHours);
+    setWeekendFinalHours(getUserRestaurant.weekendFinalHours);
+    setImages(getUserRestaurant.images);
   };
   useEffect(() => {
     getCurrentRestaurantInfo();
+    console.log('hoy');
   }, [userRestaurant._id]);
 
   const handleCheckWifi = (e) => {
@@ -76,8 +86,20 @@ export const UserRestaurantDetail = ({ match }) => {
     setIsOpen(e.target.checked);
   };
 
-  const handleTimeChange = (time) => {
-    setSelectedTime(time);
+  const handleBusinessDayInitial = (time) => {
+    setBusinessDayStartHours(time.format());
+  };
+
+  const handleBusinessDayFinal = (time) => {
+    setBusinessDayFinalHours(time.format());
+  };
+
+  const handleWeekendInitial = (time) => {
+    setWeekendStartHours(time.format());
+  };
+
+  const handleWeekendFinal = (time) => {
+    setWeekendFinalHours(time.format());
   };
 
   const handleSubmit = async (e) => {
@@ -103,7 +125,8 @@ export const UserRestaurantDetail = ({ match }) => {
     if (formErrors) return;
 
     updateRestaurantInfo(id, companyName, restaurantCnpj, phone,
-      capacity, address, isWifi, isParking, isOpen);
+      capacity, address, isWifi, isParking, isOpen, businessDayStartHours,
+      businessDayFinalHours, weekendStartHours, weekendFinalHours);
     toast.info('Informações atualizadas com sucesso');
   };
 
@@ -229,15 +252,15 @@ export const UserRestaurantDetail = ({ match }) => {
                             }}
                           />
                         </Grid>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
                           <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                             <KeyboardTimePicker
                               margin="normal"
                               ampm={false}
                               id="time-picker"
                               label="Dia útil - Horário Inicial"
-                              value={selectedTime}
-                              onChange={handleTimeChange}
+                              value={businessDayStartHours}
+                              onChange={handleBusinessDayInitial}
                               error={false}
                               keyboardIcon={<AccessTimeIcon color="primary" />}
                               KeyboardButtonProps={{
@@ -256,8 +279,8 @@ export const UserRestaurantDetail = ({ match }) => {
                               ampm={false}
                               id="time-picker"
                               label="Dia útil - Horário Final"
-                              value={selectedTime}
-                              onChange={handleTimeChange}
+                              value={businessDayFinalHours}
+                              onChange={handleBusinessDayFinal}
                               error={false}
                               keyboardIcon={<AccessTimeIcon color="primary" />}
                               KeyboardButtonProps={{
@@ -276,8 +299,8 @@ export const UserRestaurantDetail = ({ match }) => {
                               ampm={false}
                               id="time-picker"
                               label="Fim de semana - Horário Inicial"
-                              value={selectedTime}
-                              onChange={handleTimeChange}
+                              value={weekendStartHours}
+                              onChange={handleWeekendInitial}
                               error={false}
                               keyboardIcon={<AccessTimeIcon color="primary" />}
                               KeyboardButtonProps={{
@@ -296,8 +319,8 @@ export const UserRestaurantDetail = ({ match }) => {
                               ampm={false}
                               id="time-picker"
                               label="Fim de semana - Horário Final"
-                              value={selectedTime}
-                              onChange={handleTimeChange}
+                              value={weekendFinalHours}
+                              onChange={handleWeekendFinal}
                               error={false}
                               keyboardIcon={<AccessTimeIcon color="primary" />}
                               KeyboardButtonProps={{
@@ -321,7 +344,7 @@ export const UserRestaurantDetail = ({ match }) => {
                         Atualizar
                       </Button>
                     </form>
-                    <RestaurantImages />
+                    <RestaurantImages images={images} setImages={setImages} />
                   </CardContent>
                 </Card>
               </Grid>

@@ -31,7 +31,8 @@ const useRestaurant = () => {
   };
 
   const updateRestaurantInfo = async (id, companyName, restaurantCnpj,
-    phone, capacity, address, isWifi, isParking, isOpen) => {
+    phone, capacity, address, isWifi, isParking, isOpen, businessDayStartHours,
+    businessDayFinalHours, weekendStartHours, weekendFinalHours) => {
     const token = await localStorage.getItem('authToken');
     const config = {
       header: {
@@ -49,9 +50,28 @@ const useRestaurant = () => {
         isWifi,
         isParking,
         isOpen,
+        businessDayStartHours,
+        businessDayFinalHours,
+        weekendStartHours,
+        weekendFinalHours,
       }, config);
     } catch (error) {
       toast.error('Cannot update informations');
+    }
+  };
+
+  const deleteRestaurantImages = async (id) => {
+    const token = await localStorage.getItem('authToken');
+    const config = {
+      header: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await api.delete(`/images/${id}`, {}, config);
+    } catch (error) {
+      toast.error('Cannot show images');
+      console.log(error);
     }
   };
 
@@ -63,7 +83,7 @@ const useRestaurant = () => {
   }, []);
 
   return {
-    restaurants, category, loading, updateRestaurantInfo,
+    restaurants, category, loading, updateRestaurantInfo, deleteRestaurantImages,
   };
 };
 

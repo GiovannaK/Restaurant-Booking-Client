@@ -2,6 +2,7 @@
 import { Container, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { ToastContainer } from 'react-toastify';
 import { Router } from 'react-router-dom';
+import moment from 'moment-timezone';
 import { Routes } from './routes/index';
 import { Header } from './components/Header/index';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,7 @@ import { ProfileProvider } from './context/ProfileContext/profileContext';
 import { RestaurantProvider } from './context/RestaurantContext/restaurantContext';
 
 function App() {
+  moment.tz.setDefault('America/Sao_Paulo');
   return (
     <ThemeProvider theme={lightTheme}>
       <Router history={history}>
