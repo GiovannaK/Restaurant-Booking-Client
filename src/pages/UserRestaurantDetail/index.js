@@ -36,6 +36,7 @@ export const UserRestaurantDetail = ({ match }) => {
     fetchRestaurantDetail, userRestaurant, userRestaurants, loading,
   } = useProfile(ProfileContext);
   const { updateRestaurantInfo } = useRestaurant(RestaurantContext);
+  const [restaurantId, setRestaurantId] = useState(null);
   const [companyName, setCompanyName] = useState('');
   const [restaurantCnpj, setRestaurantCnpj] = useState('');
   const [phone, setPhone] = useState('');
@@ -68,10 +69,11 @@ export const UserRestaurantDetail = ({ match }) => {
     setWeekendStartHours(getUserRestaurant.weekendStartHours);
     setWeekendFinalHours(getUserRestaurant.weekendFinalHours);
     setImages(getUserRestaurant.images);
+    setRestaurantId(getUserRestaurant._id);
   };
+
   useEffect(() => {
     getCurrentRestaurantInfo();
-    console.log('hoy');
   }, [userRestaurant._id]);
 
   const handleCheckWifi = (e) => {
@@ -344,7 +346,11 @@ export const UserRestaurantDetail = ({ match }) => {
                         Atualizar
                       </Button>
                     </form>
-                    <RestaurantImages images={images} setImages={setImages} />
+                    <RestaurantImages
+                      images={images}
+                      setImages={setImages}
+                      restaurantId={restaurantId}
+                    />
                   </CardContent>
                 </Card>
               </Grid>
