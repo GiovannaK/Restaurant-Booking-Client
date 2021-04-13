@@ -16,6 +16,13 @@ const useStyles = makeStyles((lightTheme) => ({
     border: 'dashed',
     borderColor: lightTheme.palette.primary.dark,
   },
+  checkbox: {
+    color: lightTheme.palette.primary.dark,
+  },
+  button: {
+    width: '100%',
+    marginTop: lightTheme.spacing(5),
+  },
 }));
 
 export default useStyles;

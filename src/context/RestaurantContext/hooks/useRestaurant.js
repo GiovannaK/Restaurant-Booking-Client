@@ -1,14 +1,20 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CannotFound } from '../../../components/CannotFound';
+import history from '../../../routes/history';
 import { api } from '../../../services/api';
 
 const useRestaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [apiAddresses, setApiAddresses] = useState([]);
 
   const fetchAllRestaurants = async () => {
     try {
@@ -24,9 +30,59 @@ const useRestaurant = () => {
     try {
       const response = await api.get('/restaurant_categories/');
       setCategory(response.data.restaurantCategories);
+      localStorage.setItem('restaurantCategory', JSON.stringify(response.data.restaurantCategories));
       setLoading(false);
     } catch (error) {
       toast.error('Cannot show categories');
+    }
+  };
+
+  const fetchAdresses = async (address) => {
+    try {
+      const result = await axios.get(`https://geocode.search.hereapi.com/v1/geocode?q=${address}&apiKey=${process.env.REACT_APP_HERE_KEY}`);
+      setApiAddresses(result.data.items.map((val) => val.title));
+      const getLong = (result.data.items.forEach((val) => {
+        setLongitude(val.position.lng);
+      }));
+      const getLat = (result.data.items.forEach((val) => {
+        setLatitude(val.position.lat);
+      }));
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  };
+
+  const createRestaurant = async (companyName, cnpj, phone,
+    capacity, address, isParking, isWifi, businessDayStartHours,
+    businessDayFinalHours, weekendStartHours, weekendFinalHours,
+    restaurantCategory, latitude, longitude) => {
+    const token = await localStorage.getItem('authToken');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await api.post('/restaurant/register_restaurant', {
+        companyName,
+        cnpj,
+        phone,
+        capacity,
+        address,
+        isParking,
+        isWifi,
+        businessDayStartHours,
+        businessDayFinalHours,
+        weekendStartHours,
+        weekendFinalHours,
+        restaurantCategory,
+        latitude,
+        longitude,
+      }, config);
+    } catch (error) {
+      toast.error('Cannot create restaurant');
     }
   };
 
@@ -71,7 +127,6 @@ const useRestaurant = () => {
       const response = await api.delete(`/images/${id}`, {}, config);
     } catch (error) {
       toast.error('Cannot show images');
-      console.log(error);
     }
   };
 
@@ -83,7 +138,16 @@ const useRestaurant = () => {
   }, []);
 
   return {
-    restaurants, category, loading, updateRestaurantInfo, deleteRestaurantImages,
+    restaurants,
+    category,
+    loading,
+    updateRestaurantInfo,
+    deleteRestaurantImages,
+    createRestaurant,
+    fetchAdresses,
+    latitude,
+    longitude,
+    apiAddresses,
   };
 };
 

@@ -74,6 +74,7 @@ export const UserRestaurantDetail = ({ match }) => {
 
   useEffect(() => {
     getCurrentRestaurantInfo();
+    fetchRestaurantDetail(id);
   }, [userRestaurant._id]);
 
   const handleCheckWifi = (e) => {
