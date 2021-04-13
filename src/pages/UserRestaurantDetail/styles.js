@@ -22,7 +22,7 @@ const useStyles = makeStyles((lightTheme) => ({
     color: lightTheme.palette.primary.dark,
   },
   button: {
-    marginTop: lightTheme.spacing(2),
+    marginTop: lightTheme.spacing(10),
     width: '100%',
   },
 }));

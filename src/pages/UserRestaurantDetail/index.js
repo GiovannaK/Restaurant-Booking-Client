@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 import {
@@ -6,6 +7,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   TextField,
@@ -35,7 +37,9 @@ export const UserRestaurantDetail = ({ match }) => {
   const {
     fetchRestaurantDetail, userRestaurant, userRestaurants, loading,
   } = useProfile(ProfileContext);
-  const { updateRestaurantInfo } = useRestaurant(RestaurantContext);
+  const {
+    updateRestaurantInfo, fetchAdresses, latitude, longitude, apiAddresses,
+  } = useRestaurant(RestaurantContext);
   const [restaurantId, setRestaurantId] = useState(null);
   const [companyName, setCompanyName] = useState('');
   const [restaurantCnpj, setRestaurantCnpj] = useState('');
@@ -76,6 +80,16 @@ export const UserRestaurantDetail = ({ match }) => {
     getCurrentRestaurantInfo();
     fetchRestaurantDetail(id);
   }, [userRestaurant._id]);
+
+  useEffect(() => {
+    if (address !== '') {
+      fetchAdresses(address);
+    }
+  }, [address]);
+
+  const handleAddress = (value) => {
+    setAddress(value);
+  };
 
   const handleCheckWifi = (e) => {
     setIsWifi(e.target.checked);
@@ -125,11 +139,16 @@ export const UserRestaurantDetail = ({ match }) => {
       toast.error('Seu restaurante deve ter capacidade para pelo menos 1 cliente');
     }
 
+    if (!address.length) {
+      formErrors = true;
+      toast.error('Clique nas sugestões de endereço');
+    }
+
     if (formErrors) return;
 
     updateRestaurantInfo(id, companyName, restaurantCnpj, phone,
       capacity, address, isWifi, isParking, isOpen, businessDayStartHours,
-      businessDayFinalHours, weekendStartHours, weekendFinalHours);
+      businessDayFinalHours, weekendStartHours, weekendFinalHours, latitude, longitude);
     toast.info('Informações atualizadas com sucesso');
   };
 
@@ -240,21 +259,6 @@ export const UserRestaurantDetail = ({ match }) => {
                             label="Aberto"
                           />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                          <TextField
-                            id="outlined-firstName-input"
-                            label="Endereço"
-                            type="text"
-                            placeholder="Ex: Rua aaaaa, 6748, cidade, estado"
-                            onChange={(e) => setAddress(e.target.value)}
-                            value={address}
-                            style={{ width: '100%' }}
-                            InputLabelProps={{
-                              shrink: true,
-                              className: classes.inputLabel,
-                            }}
-                          />
-                        </Grid>
                         <MuiPickersUtilsProvider utils={MomentUtils}>
                           <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                             <KeyboardTimePicker
@@ -337,7 +341,53 @@ export const UserRestaurantDetail = ({ match }) => {
                             />
                           </Grid>
                         </MuiPickersUtilsProvider>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                          <TextField
+                            id="outlined-firstName-input"
+                            label="Endereço"
+                            type="text"
+                            placeholder="Ex: Rua aaaaa, 6748, cidade, estado"
+                            onChange={(e) => setAddress(e.target.value)}
+                            value={address}
+                            style={{ width: '100%' }}
+                            InputLabelProps={{
+                              shrink: true,
+                              className: classes.inputLabel,
+                            }}
+                          />
+                          {apiAddresses.length ? (
+
+                            apiAddresses.map((item, index) => (
+                              <>
+                                <Typography
+                                  variant="h6"
+                                  key={index}
+                                  onClick={() => handleAddress(item)}
+                                >
+                                  {item}
+                                </Typography>
+                                <Divider />
+                              </>
+                            ))
+                          ) : (
+                            <></>
+                          )}
+                        </Grid>
                       </Grid>
+                      <input
+                        type="number"
+                        hidden
+                        readOnly
+                        value={longitude}
+                        name="longitude"
+                      />
+                      <input
+                        type="number"
+                        hidden
+                        readOnly
+                        name="latitude"
+                        value={latitude}
+                      />
                       <Button
                         type="submit"
                         variant="contained"

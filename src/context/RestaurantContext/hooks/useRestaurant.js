@@ -88,7 +88,7 @@ const useRestaurant = () => {
 
   const updateRestaurantInfo = async (id, companyName, restaurantCnpj,
     phone, capacity, address, isWifi, isParking, isOpen, businessDayStartHours,
-    businessDayFinalHours, weekendStartHours, weekendFinalHours) => {
+    businessDayFinalHours, weekendStartHours, weekendFinalHours, latitude, longitude) => {
     const token = await localStorage.getItem('authToken');
     const config = {
       header: {
@@ -110,6 +110,8 @@ const useRestaurant = () => {
         businessDayFinalHours,
         weekendStartHours,
         weekendFinalHours,
+        latitude,
+        longitude,
       }, config);
     } catch (error) {
       toast.error('Cannot update informations');
