@@ -63,7 +63,7 @@ const useProfile = () => {
         setUserRestaurants(response.data.restaurants);
         setLoading(false);
       } catch (error) {
-        toast.error('Cannot show user restaurants');
+        console.log(error);
       }
     }
   };

@@ -18,7 +18,7 @@ const useStyles = makeStyles((lightTheme) => ({
     color: lightTheme.palette.primary.main,
   },
   menu: {
-    marginRight: lightTheme.spacing(5),
+    marginRight: lightTheme.spacing(2),
   },
   title: {
     flexGrow: 1,
