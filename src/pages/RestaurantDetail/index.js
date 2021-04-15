@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
@@ -26,6 +27,7 @@ import WifiOffIcon from '@material-ui/icons/WifiOff';
 import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import NoParking from '../../images/no_parking.svg';
 import useStyles from './styles';
 import { ModalComponent } from '../../components/Modal';
@@ -171,13 +173,15 @@ export const RestaurantDetail = ({ match }) => {
                       handleClose={handleClose}
                       restaurant={restaurant}
                     />
-                    <Button
-                      className={classes.button}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Reservar mesa
-                    </Button>
+                    <Link to={`/request_booking/${restaurant._id}`} style={{ textDecoration: 'none' }}>
+                      <Button
+                        className={classes.button}
+                        color="primary"
+                        variant="contained"
+                      >
+                        Reservar mesa
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               </Grid>

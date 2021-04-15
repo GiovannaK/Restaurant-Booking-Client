@@ -20,6 +20,7 @@ import { ProfileContext } from '../context/ProfileContext/profileContext';
 import { UserRestaurants } from '../pages/UserRestaurants';
 import { UserRestaurantDetail } from '../pages/UserRestaurantDetail';
 import { RegisterRestaurant } from '../pages/RegisterRestaurant';
+import { RequestBooking } from '../pages/RequestBooking';
 
 export const Routes = () => {
   const { user } = useProfile(ProfileContext);
@@ -39,6 +40,7 @@ export const Routes = () => {
       <PrivateRoute exact path="/user_restaurants/:id" component={UserRestaurantDetail} />
       <PrivateRoute exact path="/user_bookings" component={UserBookings} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/request_booking/:id" component={RequestBooking} />
       <Route path="" component={Page404} />
     </Switch>
   );

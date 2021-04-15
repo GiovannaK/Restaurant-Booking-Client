@@ -11,6 +11,7 @@ import history from './routes/history';
 import { AuthProvider } from './context/AuthContext/authContext';
 import { ProfileProvider } from './context/ProfileContext/profileContext';
 import { RestaurantProvider } from './context/RestaurantContext/restaurantContext';
+import { BookingProvider } from './context/BookingContext/bookingContext';
 
 function App() {
   moment.tz.setDefault('America/Sao_Paulo');
@@ -20,17 +21,19 @@ function App() {
         <AuthProvider>
           <ProfileProvider>
             <RestaurantProvider>
-              <CssBaseline />
-              <Header />
-              <Container styles={{ minHeight: '100vh' }}>
-                <Routes />
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={5000}
-                  draggable
-                  pauseOnHover
-                />
-              </Container>
+              <BookingProvider>
+                <CssBaseline />
+                <Header />
+                <Container styles={{ minHeight: '100vh' }}>
+                  <Routes />
+                  <ToastContainer
+                    position="bottom-left"
+                    autoClose={5000}
+                    draggable
+                    pauseOnHover
+                  />
+                </Container>
+              </BookingProvider>
             </RestaurantProvider>
           </ProfileProvider>
         </AuthProvider>

@@ -22,7 +22,6 @@ import MomentUtils from '@date-io/moment';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { cnpj } from 'cpf-cnpj-validator';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
 import useStyles from './styles';
