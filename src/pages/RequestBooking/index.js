@@ -27,10 +27,10 @@ import useStyles from './styles';
 import useBooking from '../../context/BookingContext/hooks/useBooking';
 import { BookingProvider } from '../../context/BookingContext/bookingContext';
 
-export const RequestBooking = () => {
+export const RequestBooking = ({ match }) => {
   const classes = useStyles();
-  const { specialDate } = useBooking(BookingProvider);
-
+  const { specialDate, requestBooking } = useBooking(BookingProvider);
+  const { id } = match.params;
   const [hours, setHours] = useState('');
   const [date, setDate] = useState('');
   const [bookingSpecialDate, setBookingSpecialDate] = useState('');
@@ -76,6 +76,10 @@ export const RequestBooking = () => {
     }
 
     if (formErrors) return;
+
+    requestBooking(id, hours, date, bookingSpecialDate, table, extras);
+
+    toast.info('Solicitação de reserva enviada, confira seu e-mail');
   };
 
   return (

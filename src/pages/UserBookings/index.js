@@ -31,7 +31,7 @@ export const UserBookings = () => {
                 <Box className={classes.box}>
                   <Grid container justify="center" spacing={2}>
                     {userBookings.map((booking) => (
-                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6} key={booking._id}>
+                      <Grid item xs={12} sm={12} md={8} lg={8} xl={8} key={booking._id}>
                         <Card variant="outlined">
                           <CardContent>
                             <Typography
@@ -54,15 +54,12 @@ export const UserBookings = () => {
                                 <Typography variant="h6" className={classes.typography}>
                                   Hora:
                                   {' '}
-                                  {booking.hours}
-                                  :
-                                  {booking.minutes}
+                                  {moment(booking.hours).format('HH:mm')}
                                 </Typography>
                               </Grid>
                               <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                                 <Typography variant="h6" className={classes.typography}>
-                                  Data especial: {booking.specialDate.specialDate
-                                  ? `${booking.specialDate.specialDate}` : 'Nenhuma'}
+                                  Data especial: {booking.specialDate}
                                 </Typography>
                                 <Typography variant="h6" className={classes.typography}>
                                   Observações: {booking.extras
