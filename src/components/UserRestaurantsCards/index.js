@@ -35,8 +35,25 @@ export const UserRestaurantsCards = ({ restaurant }) => {
           <LocationOnIcon />
           {restaurant.address}
         </Typography>
-        <Toolbar />
-        <Typography variant="h6">{restaurant.isOpen ? 'Aberto' : 'Fechado'}</Typography>
+        <Typography variant="h6">
+          {restaurant.isOpen
+            ? (
+              <Typography
+                variant="h6"
+                className={classes.typography}
+              >
+                Aberto
+              </Typography>
+            ) : (
+              <Typography
+                variant="h6"
+                className={classes.typography}
+              >
+                Fechado
+              </Typography>
+            )}
+
+        </Typography>
       </CardActions>
     </Card>
   );

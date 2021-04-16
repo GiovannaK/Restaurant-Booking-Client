@@ -8,10 +8,12 @@ import {
   CardContent,
   Checkbox,
   Divider,
+  Fab,
   FormControlLabel,
   Grid,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import {
@@ -23,6 +25,9 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { cnpj } from 'cpf-cnpj-validator';
+import { Link } from 'react-router-dom';
+
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { ProfileContext } from '../../context/ProfileContext/profileContext';
 import useStyles from './styles';
 import { Loading } from '../../components/Loading';
@@ -405,6 +410,13 @@ export const UserRestaurantDetail = ({ match }) => {
                 </Card>
               </Grid>
             </Grid>
+            <Link to={`/restaurant_bookings/${id}`} style={{ textDecoration: 'none' }}>
+              <Tooltip title={<Typography variant="h6">Ver Reservas</Typography>}>
+                <Fab color="primary" aria-label="add" className={classes.fab}>
+                  <MenuBookIcon />
+                </Fab>
+              </Tooltip>
+            </Link>
           </Box>
         </>
       )}

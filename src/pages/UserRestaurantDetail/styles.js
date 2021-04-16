@@ -25,6 +25,14 @@ const useStyles = makeStyles((lightTheme) => ({
     marginTop: lightTheme.spacing(10),
     width: '100%',
   },
+  fab: {
+    position: 'fixed',
+    bottom: lightTheme.spacing(2),
+    right: lightTheme.spacing(2),
+  },
+  tooltip: {
+    fontSize: '1.1rem',
+  },
 }));
 
 export default useStyles;

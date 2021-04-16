@@ -12,6 +12,10 @@ const useStyles = makeStyles((lightTheme) => ({
   media: {
     height: 200,
   },
+
+  typography: {
+    textTransform: 'uppercase',
+  },
 }));
 
 export default useStyles;
