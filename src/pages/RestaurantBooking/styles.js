@@ -18,6 +18,18 @@ const useStyles = makeStyles((lightTheme) => ({
   buttonReject: {
     color: 'red',
   },
+  fab: {
+    position: 'fixed',
+    bottom: lightTheme.spacing(2),
+    right: lightTheme.spacing(2),
+  },
+  tooltip: {
+    fontSize: '1.1rem',
+  },
+  typography: {
+    textTransform: 'uppercase',
+    color: lightTheme.palette.primary.dark,
+  },
 }));
 
 export default useStyles;

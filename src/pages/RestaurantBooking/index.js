@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
@@ -21,6 +23,7 @@ export const RestaurantBookings = ({ match }) => {
   const decodedToken = jwtDecode(userToken);
   const user = decodedToken.id;
   const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const connectionOptions = {
     'force new connection': true,
@@ -33,7 +36,7 @@ export const RestaurantBookings = ({ match }) => {
     const socket = socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions);
 
     socket.on('booking_request', (data) => {
-      setRequests([...requests, data]);
+      setRequests((requests) => [data, ...requests]);
     });
   }, []);
 
@@ -54,17 +57,42 @@ export const RestaurantBookings = ({ match }) => {
 
   const handleApproval = async (bookingId) => {
     await api.post(`/restaurant_bookings/approvals/${bookingId}`);
+    setRequests(
+      requests.map((item) => {
+        if (item._id === bookingId) {
+          return {
+            ...item, approved: true,
+          };
+        }
+        return item;
+      }),
+    );
   };
 
   const handleRejection = async (bookingId) => {
     await api.post(`/restaurant_bookings/rejects/${bookingId}`);
+    setRequests(
+      requests.map((item) => {
+        if (item._id === bookingId) {
+          return {
+            ...item, approved: false,
+          };
+        }
+        return item;
+      }),
+    );
   };
 
   return (
     <>
       <Toolbar />
       <Box className={classes.box}>
+        <Typography align="center" variant="h4" className={classes.typography}>
+          Solicitações de reserva
+        </Typography>
+        <Toolbar />
         <Grid container spacing={2}>
+
           {requests.map((request) => (
 
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} key={request._id}>
