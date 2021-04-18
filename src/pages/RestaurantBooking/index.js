@@ -9,6 +9,8 @@ import socketio from 'socket.io-client';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
 import useStyles from './styles';
 import { api } from '../../services/api';
 
@@ -49,6 +51,14 @@ export const RestaurantBookings = ({ match }) => {
   useEffect(() => {
     fetchRestaurantBookings();
   }, []);
+
+  const handleApproval = async (bookingId) => {
+    await api.post(`/restaurant_bookings/approvals/${bookingId}`);
+  };
+
+  const handleRejection = async (bookingId) => {
+    await api.post(`/restaurant_bookings/rejects/${bookingId}`);
+  };
 
   return (
     <>
@@ -116,14 +126,30 @@ export const RestaurantBookings = ({ match }) => {
                     </Grid>
                   </Grid>
                 </CardContent>
-                <CardActions className={classes.cardActions}>
-                  <Button className={classes.buttonAccept}>
-                    Aceitar
-                  </Button>
-                  <Button className={classes.buttonReject}>
-                    Rejeitar
-                  </Button>
-                </CardActions>
+                {(() => {
+                  if (request.approved === true) {
+                    return <CheckIcon color="primary" />;
+                  }
+                  if (request.approved === false) {
+                    return <ClearIcon />;
+                  }
+                  return (
+                    <CardActions className={classes.cardActions}>
+                      <Button
+                        className={classes.buttonAccept}
+                        onClick={() => handleApproval(request._id)}
+                      >
+                        Aceitar
+                      </Button>
+                      <Button
+                        className={classes.buttonReject}
+                        onClick={() => handleRejection(request._id)}
+                      >
+                        Rejeitar
+                      </Button>
+                    </CardActions>
+                  );
+                })()}
               </Card>
             </Grid>
           ))}
