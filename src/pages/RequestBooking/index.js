@@ -29,17 +29,17 @@ import { BookingProvider } from '../../context/BookingContext/bookingContext';
 
 export const RequestBooking = ({ match }) => {
   const classes = useStyles();
-  const { specialDate, requestBooking } = useBooking(BookingProvider);
+  const { bookingSpecialDate, requestBooking } = useBooking(BookingProvider);
   const { id } = match.params;
   const [hours, setHours] = useState('');
   const [date, setDate] = useState('');
-  const [bookingSpecialDate, setBookingSpecialDate] = useState('');
+  const [specialDate, setSpecialDate] = useState('');
   const [table, setTable] = useState('');
   const [extras, setExtras] = useState('');
 
   const getSpecialDates = async () => {
     const specialDates = await JSON.parse(localStorage.getItem('specialDates'));
-    setBookingSpecialDate(specialDates[0]._id);
+    setSpecialDate(specialDates[0]._id);
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const RequestBooking = ({ match }) => {
   }, []);
 
   const handleSpecialDate = (e) => {
-    setBookingSpecialDate(e.target.value);
+    setSpecialDate(e.target.value);
   };
 
   const handleHour = (time) => {
@@ -77,7 +77,7 @@ export const RequestBooking = ({ match }) => {
 
     if (formErrors) return;
 
-    requestBooking(id, hours, date, bookingSpecialDate, table, extras);
+    requestBooking(id, hours, date, specialDate, table, extras);
 
     toast.info('Solicitação de reserva enviada, confira seu e-mail');
   };
@@ -125,12 +125,12 @@ export const RequestBooking = ({ match }) => {
                       </InputLabel>
                       <Select
                         labelId="demo-simple-select-autowidth-label"
-                        value={bookingSpecialDate}
+                        value={specialDate}
                         onChange={handleSpecialDate}
                         autoWidth
                         style={{ width: '100%' }}
                       >
-                        {specialDate.map((item) => (
+                        {bookingSpecialDate.map((item) => (
                           <MenuItem
                             key={item._id}
                             value={item._id}

@@ -4,19 +4,19 @@ import { toast } from 'react-toastify';
 import { api } from '../../../services/api';
 
 const useBooking = () => {
-  const [specialDate, setSpecialDate] = useState([]);
+  const [bookingSpecialDate, setBookingSpecialDate] = useState([]);
 
   const fetchAllSpecialDates = async () => {
     try {
       const response = await api.get('/special_dates/');
-      setSpecialDate(response.data.specialDates);
+      setBookingSpecialDate(response.data.specialDates);
       localStorage.setItem('specialDates', JSON.stringify(response.data.specialDates));
     } catch (error) {
       toast.error('Algo deu errado!');
     }
   };
 
-  const requestBooking = async (id, hours, date, bookingSpecialDate, table, extras) => {
+  const requestBooking = async (id, hours, date, specialDate, table, extras) => {
     const token = await localStorage.getItem('authToken');
     const config = {
       header: {
@@ -26,7 +26,7 @@ const useBooking = () => {
     };
     try {
       const response = await api.post(`/booking/${id}`, {
-        hours, date, bookingSpecialDate, table, extras,
+        hours, date, specialDate, table, extras,
       },
       config);
     } catch (error) {
@@ -39,7 +39,7 @@ const useBooking = () => {
   }, []);
 
   return {
-    specialDate, requestBooking,
+    bookingSpecialDate, requestBooking,
   };
 };
 

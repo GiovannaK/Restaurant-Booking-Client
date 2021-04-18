@@ -59,7 +59,7 @@ export const UserBookings = () => {
                               </Grid>
                               <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                                 <Typography variant="h6" className={classes.typography}>
-                                  Data especial: {booking.specialDate}
+                                  Data especial: {booking.specialDate.specialDate}
                                 </Typography>
                                 <Typography variant="h6" className={classes.typography}>
                                   Observações: {booking.extras

@@ -4,10 +4,10 @@ import useBooking from './hooks/useBooking';
 const BookingContext = createContext();
 
 const BookingProvider = ({ children }) => {
-  const { specialDate, requestBooking } = useBooking();
+  const { bookingSpecialDate, requestBooking } = useBooking();
 
   return (
-    <BookingContext.Provider value={{ specialDate, requestBooking }}>
+    <BookingContext.Provider value={{ bookingSpecialDate, requestBooking }}>
       {children}
     </BookingContext.Provider>
   );
