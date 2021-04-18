@@ -35,6 +35,10 @@ import { RestaurantDetailReview } from '../../components/RestaurantDetailReview'
 import { api } from '../../services/api';
 import { Loading } from '../../components/Loading';
 import noPic from '../../images/noPic.png';
+import useAuth from '../../context/AuthContext/hooks/useAuth';
+import { AuthContext } from '../../context/AuthContext/authContext';
+import useProfile from '../../context/ProfileContext/hooks/useProfile';
+import { ProfileContext } from '../../context/ProfileContext/profileContext';
 
 export const RestaurantDetail = ({ match }) => {
   const classes = useStyles();
@@ -44,6 +48,8 @@ export const RestaurantDetail = ({ match }) => {
   const [review, setReview] = useState([]);
   const { id } = match.params;
   const [openModal, setOpenModal] = useState(false);
+  const { authenticated } = useAuth(AuthContext);
+  const { user } = useProfile(ProfileContext);
 
   const handleOpen = () => {
     setOpenModal(true);
@@ -173,15 +179,28 @@ export const RestaurantDetail = ({ match }) => {
                       handleClose={handleClose}
                       restaurant={restaurant}
                     />
-                    <Link to={`/request_booking/${restaurant._id}`} style={{ textDecoration: 'none' }}>
-                      <Button
-                        className={classes.button}
-                        color="primary"
-                        variant="contained"
-                      >
-                        Reservar mesa
-                      </Button>
-                    </Link>
+                    {(authenticated && !user.isPartner) ? (
+                      <Link to={`/request_booking/${restaurant._id}`} style={{ textDecoration: 'none' }}>
+                        <Button
+                          className={classes.button}
+                          color="primary"
+                          variant="contained"
+                        >
+                          Reservar mesa
+                        </Button>
+                      </Link>
+
+                    ) : (
+                      <Link to="/register" style={{ textDecoration: 'none' }}>
+                        <Button
+                          className={classes.button}
+                          color="primary"
+                          variant="contained"
+                        >
+                          Crie uma conta para realizar uma reserva
+                        </Button>
+                      </Link>
+                    )}
                   </CardContent>
                 </Card>
               </Grid>

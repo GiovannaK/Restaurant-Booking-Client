@@ -4,6 +4,7 @@ import {
   Button,
   Hidden,
   IconButton,
+  ListItem,
   ListItemIcon,
   ListItemText,
   Menu, MenuItem,
@@ -18,15 +19,19 @@ import { Link } from 'react-router-dom';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeckIcon from '@material-ui/icons/Deck';
 import { DrawerComponent } from '../DrawerComponent';
 import useStyles from './styles';
 import { AuthContext } from '../../context/AuthContext/authContext';
+import { ProfileContext } from '../../context/ProfileContext/profileContext';
+import useProfile from '../../context/ProfileContext/hooks/useProfile';
 
 export const Header = () => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const { authenticated, handleLogout } = useContext(AuthContext);
+  const { user } = useProfile(ProfileContext);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -127,8 +132,29 @@ export const Header = () => {
                       </ListItemText>
                     </MenuItem>
                   </Link>
+                  {user.isPartner ? (
+                    <Link to="/user_restaurants" style={{ textDecoration: 'none' }}>
+                      <ListItem button>
+                        <ListItemIcon><DeckIcon color="primary" /></ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="primary">
+                            Meus Restaurantes
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                    </Link>
+
+                  ) : (
+                    <></>
+                  )}
                 </Menu>
-                <NotificationsIcon color="primary" />
+                {!user.isPartner ? (
+                  <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
+                    <NotificationsIcon color="primary" />
+                  </Link>
+                ) : (
+                  <></>
+                )}
                 <Link to="/" style={{ textDecoration: 'none' }}>
                   <Button onClick={handleLogout} color="primary" variant="outlined" size="large" className={classes.button}>
                     Sair

@@ -11,12 +11,16 @@ import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
+import DeckIcon from '@material-ui/icons/Deck';
 import { AuthContext } from '../../context/AuthContext/authContext';
 import useStyles from './styles';
+import useProfile from '../../context/ProfileContext/hooks/useProfile';
+import { ProfileContext } from '../../context/ProfileContext/profileContext';
 
 export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
   const classes = useStyles();
   const { authenticated, handleLogout } = useContext(AuthContext);
+  const { user } = useProfile(ProfileContext);
 
   return (
     <>
@@ -32,17 +36,6 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
           {authenticated ? (
             <>
               <Divider />
-              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-                <ListItem button>
-                  <ListItemIcon><PersonIcon /></ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="h6" className={classes.typography}>
-                      Perfil
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-              </Link>
-              <Divider />
               <Link to="/" style={{ textDecoration: 'none' }}>
                 <ListItem button>
                   <ListItemIcon><RestaurantIcon /></ListItemIcon>
@@ -56,14 +49,38 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
               <Divider />
               <Link to="/dashboard" style={{ textDecoration: 'none' }}>
                 <ListItem button>
-                  <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                  <ListItemIcon><PersonIcon /></ListItemIcon>
                   <ListItemText>
                     <Typography variant="h6" className={classes.typography}>
-                      Notificações de reservas
+                      Perfil
                     </Typography>
                   </ListItemText>
                 </ListItem>
               </Link>
+              <Divider />
+              {!user.isPartner ? (
+                <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                  <ListItem button>
+                    <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                    <ListItemText>
+                      <Typography variant="h6" className={classes.typography}>
+                        Notificações de reservas
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                </Link>
+              ) : (
+                <Link to="/user_restaurants" style={{ textDecoration: 'none' }}>
+                  <ListItem button>
+                    <ListItemIcon><DeckIcon /></ListItemIcon>
+                    <ListItemText>
+                      <Typography variant="h6" className={classes.typography}>
+                        Meus Restaurantes
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                </Link>
+              )}
               <Divider />
               <Button
                 color="primary"

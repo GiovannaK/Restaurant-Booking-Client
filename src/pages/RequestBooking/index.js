@@ -26,6 +26,7 @@ import { toast } from 'react-toastify';
 import useStyles from './styles';
 import useBooking from '../../context/BookingContext/hooks/useBooking';
 import { BookingProvider } from '../../context/BookingContext/bookingContext';
+import 'moment/locale/pt-br';
 
 export const RequestBooking = ({ match }) => {
   const classes = useStyles();
@@ -141,7 +142,7 @@ export const RequestBooking = ({ match }) => {
                         ))}
                       </Select>
                     </Grid>
-                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <MuiPickersUtilsProvider locale="pt-br" utils={MomentUtils}>
                       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <KeyboardTimePicker
                           margin="normal"
