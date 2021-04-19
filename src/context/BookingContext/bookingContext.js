@@ -5,12 +5,12 @@ const BookingContext = createContext();
 
 const BookingProvider = ({ children }) => {
   const {
-    bookingSpecialDate, requestBooking, fetchRestaurantBookings, loading, bookings,
+    bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus,
   } = useBooking();
 
   return (
     <BookingContext.Provider value={{
-      bookingSpecialDate, requestBooking, fetchRestaurantBookings, loading, bookings,
+      bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus,
     }}
     >
       {children}

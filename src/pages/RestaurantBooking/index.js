@@ -6,7 +6,7 @@
 import {
   Box, Button, Card, CardActions, CardContent, Divider, Grid, Toolbar, Typography,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import socketio from 'socket.io-client';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
@@ -23,7 +23,6 @@ export const RestaurantBookings = ({ match }) => {
   const decodedToken = jwtDecode(userToken);
   const user = decodedToken.id;
   const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const connectionOptions = {
     'force new connection': true,
@@ -32,13 +31,14 @@ export const RestaurantBookings = ({ match }) => {
     transports: ['websocket'],
     query: { user },
   };
-  useEffect(() => {
-    const socket = socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions);
 
+  const socket = useMemo(() => socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions), [user]);
+
+  useEffect(() => {
     socket.on('booking_request', (data) => {
       setRequests((requests) => [data, ...requests]);
     });
-  }, []);
+  }, [socket]);
 
   const fetchRestaurantBookings = async () => {
     const config = {

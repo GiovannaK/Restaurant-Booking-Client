@@ -6,7 +6,6 @@ const ProfileContext = createContext();
 const ProfileProvider = ({ children }) => {
   const {
     user,
-    userBookings,
     loading,
     updateUserInfo,
     userRestaurants,
@@ -17,7 +16,6 @@ const ProfileProvider = ({ children }) => {
   return (
     <ProfileContext.Provider value={{
       user,
-      userBookings,
       loading,
       updateUserInfo,
       userRestaurants,

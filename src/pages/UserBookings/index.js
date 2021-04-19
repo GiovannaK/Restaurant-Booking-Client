@@ -4,20 +4,46 @@
 import {
   Box, Card, CardContent, Divider, Grid, Toolbar, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import useProfile from '../../context/ProfileContext/hooks/useProfile';
-import { ProfileContext } from '../../context/ProfileContext/profileContext';
+import socketio from 'socket.io-client';
+import jwtDecode from 'jwt-decode';
 import useStyles from './styles';
 import { Loading } from '../../components/Loading';
 import { NoBookings } from '../../components/NoBookings';
+import useBooking from '../../context/BookingContext/hooks/useBooking';
+import { BookingContext } from '../../context/BookingContext/bookingContext';
 
 export const UserBookings = () => {
   const classes = useStyles();
-  const { userBookings, loading } = useProfile(ProfileContext);
+  const { userBookings, loading, getBookingStatus } = useBooking(BookingContext);
+  const userToken = localStorage.getItem('authToken');
+  const decodedToken = jwtDecode(userToken);
+  const user = decodedToken.id;
+
+  /* const connectionOptions = {
+    'force new connection': true,
+    reconnectionAttempts: 'Infinity',
+    timeout: 10000,
+    transports: ['websocket'],
+    query: { user },
+  };
+
+  useEffect(() => {
+    const socket = socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions);
+    socket.on('booking_response', (booking) => {
+      console.log(booking);
+    });
+  }, []); */
+
+  useEffect(() => {
+    getBookingStatus();
+    console.log('hey');
+  }, []);
+
   return (
     <>
       {loading ? (<Loading />)

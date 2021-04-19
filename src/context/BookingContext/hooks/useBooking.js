@@ -1,12 +1,43 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
+import socketio from 'socket.io-client';
 import { api } from '../../../services/api';
 
 const useBooking = () => {
   const [bookingSpecialDate, setBookingSpecialDate] = useState([]);
-  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userBookings, setUserBookings] = useState([]);
+  const userToken = localStorage.getItem('authToken');
+  const decodedToken = jwtDecode(userToken);
+  const user = decodedToken.id;
+
+  const connectionOptions = {
+    'force new connection': true,
+    reconnectionAttempts: 'Infinity',
+    timeout: 10000,
+    transports: ['websocket'],
+    query: { user },
+  };
+
+  const socket = useMemo(() => socketio(`${process.env.REACT_APP_BASE_URL}`,
+    connectionOptions), [user]);
+
+  const getBookingStatus = () => {
+    socket.on('booking_response', (booking) => {
+      setUserBookings((userBookings) => userBookings.map((item) => {
+        if (item._id === booking._id) {
+          return {
+            ...item, approved: booking.approved,
+          };
+        }
+        return item;
+      }));
+    });
+  };
 
   const fetchAllSpecialDates = async () => {
     try {
@@ -38,27 +69,32 @@ const useBooking = () => {
     }
   };
 
-  const fetchRestaurantBookings = async (id) => {
-    const userToken = localStorage.getItem('authToken');
-    const config = {
-      Authorization: `Bearer ${userToken}`,
-    };
-    try {
-      const response = await api.get(`/restaurant_bookings/${id}`, {}, config);
-      setBookings(response.data.restaurantBooking);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      toast.error('Ocorreu um erro ao mostrar as solicitações de reserva');
+  const fetchUserBookings = async () => {
+    const token = await localStorage.getItem('authToken');
+
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      try {
+        const response = await api.get('/user_bookings/', {}, config);
+        setUserBookings(response.data.userBookings);
+        setLoading(false);
+      } catch (error) {
+        toast.error('Cannot show user bookings');
+      }
     }
   };
 
   useEffect(() => {
     fetchAllSpecialDates();
+    fetchUserBookings();
   }, []);
 
   return {
-    bookingSpecialDate, requestBooking, fetchRestaurantBookings, loading, bookings,
+    bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus,
   };
 };
 
