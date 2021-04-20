@@ -9,8 +9,6 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import socketio from 'socket.io-client';
-import jwtDecode from 'jwt-decode';
 import useStyles from './styles';
 import { Loading } from '../../components/Loading';
 import { NoBookings } from '../../components/NoBookings';
@@ -22,9 +20,6 @@ export const UserBookings = () => {
   const {
     userBookings, loading, getBookingStatus, socket,
   } = useBooking(BookingContext);
-  const userToken = localStorage.getItem('authToken');
-  const decodedToken = jwtDecode(userToken);
-  const user = decodedToken.id;
 
   useEffect(() => {
     getBookingStatus();
