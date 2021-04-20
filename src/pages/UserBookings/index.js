@@ -19,30 +19,16 @@ import { BookingContext } from '../../context/BookingContext/bookingContext';
 
 export const UserBookings = () => {
   const classes = useStyles();
-  const { userBookings, loading, getBookingStatus } = useBooking(BookingContext);
+  const {
+    userBookings, loading, getBookingStatus, socket,
+  } = useBooking(BookingContext);
   const userToken = localStorage.getItem('authToken');
   const decodedToken = jwtDecode(userToken);
   const user = decodedToken.id;
 
-  /* const connectionOptions = {
-    'force new connection': true,
-    reconnectionAttempts: 'Infinity',
-    timeout: 10000,
-    transports: ['websocket'],
-    query: { user },
-  };
-
-  useEffect(() => {
-    const socket = socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions);
-    socket.on('booking_response', (booking) => {
-      console.log(booking);
-    });
-  }, []); */
-
   useEffect(() => {
     getBookingStatus();
-    console.log('hey');
-  }, []);
+  }, [socket]);
 
   return (
     <>

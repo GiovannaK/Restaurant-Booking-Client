@@ -94,7 +94,7 @@ const useBooking = () => {
   }, []);
 
   return {
-    bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus,
+    bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus, socket,
   };
 };
 
