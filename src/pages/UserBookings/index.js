@@ -37,6 +37,19 @@ export const UserBookings = () => {
                 <Toolbar />
                 <Box className={classes.box}>
                   <Grid container justify="center" spacing={2}>
+                    <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+                      <Card variant="outlined">
+                        <CardContent>
+                          <Typography
+                            variant="h5"
+                            align="center"
+                            className={classes.typography}
+                          >
+                            Veja o progresso de suas reservas aqui ou no seu E-mail
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
                     {userBookings.map((booking) => (
                       <Grid item xs={12} sm={12} md={8} lg={8} xl={8} key={booking._id}>
                         <Card variant="outlined">

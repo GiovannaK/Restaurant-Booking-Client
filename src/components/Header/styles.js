@@ -28,6 +28,9 @@ const useStyles = makeStyles((lightTheme) => ({
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
+  notificationIcon: {
+    color: lightTheme.palette.primary.dark,
+  },
 }));
 
 export default useStyles;

@@ -9,7 +9,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PersonIcon from '@material-ui/icons/Person';
 import DeckIcon from '@material-ui/icons/Deck';
 import { AuthContext } from '../../context/AuthContext/authContext';
@@ -59,12 +59,12 @@ export const DrawerComponent = ({ openDrawer, setOpenDrawer }) => {
               </Link>
               <Divider />
               {!user.isPartner ? (
-                <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
                   <ListItem button>
-                    <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                    <ListItemIcon><MenuBookIcon /></ListItemIcon>
                     <ListItemText>
                       <Typography variant="h6" className={classes.typography}>
-                        Notificações de reservas
+                        Minhas reservas
                       </Typography>
                     </ListItemText>
                   </ListItem>

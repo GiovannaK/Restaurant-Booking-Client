@@ -27,6 +27,7 @@ import useStyles from './styles';
 import useBooking from '../../context/BookingContext/hooks/useBooking';
 import { BookingProvider } from '../../context/BookingContext/bookingContext';
 import 'moment/locale/pt-br';
+import history from '../../routes/history';
 
 export const RequestBooking = ({ match }) => {
   const classes = useStyles();
@@ -81,6 +82,7 @@ export const RequestBooking = ({ match }) => {
     requestBooking(id, hours, date, specialDate, table, extras);
 
     toast.info('Solicitação de reserva enviada, confira seu e-mail');
+    history.push('/user_bookings');
   };
 
   return (

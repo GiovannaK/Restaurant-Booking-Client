@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {
   AppBar,
+  Badge,
   Button,
   Hidden,
   IconButton,
@@ -14,10 +15,10 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeckIcon from '@material-ui/icons/Deck';
 import { DrawerComponent } from '../DrawerComponent';
@@ -120,6 +121,33 @@ export const Header = () => {
                       </ListItemText>
                     </MenuItem>
                   </Link>
+                  {!user.isPartner ? (
+                    <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <PersonIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="primary">
+                            Minhas Reservas
+                          </Typography>
+                        </ListItemText>
+                      </MenuItem>
+                    </Link>
+
+                  ) : (
+                    <Link to="/user_restaurants" style={{ textDecoration: 'none' }}>
+                      <ListItem button>
+                        <ListItemIcon><DeckIcon color="primary" /></ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="primary">
+                            Meus Restaurantes
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                    </Link>
+
+                  )}
                   <Link to="/" style={{ textDecoration: 'none' }}>
                     <MenuItem onClick={handleClose}>
                       <ListItemIcon>
@@ -132,29 +160,7 @@ export const Header = () => {
                       </ListItemText>
                     </MenuItem>
                   </Link>
-                  {user.isPartner ? (
-                    <Link to="/user_restaurants" style={{ textDecoration: 'none' }}>
-                      <ListItem button>
-                        <ListItemIcon><DeckIcon color="primary" /></ListItemIcon>
-                        <ListItemText>
-                          <Typography variant="h6" color="primary">
-                            Meus Restaurantes
-                          </Typography>
-                        </ListItemText>
-                      </ListItem>
-                    </Link>
-
-                  ) : (
-                    <></>
-                  )}
                 </Menu>
-                {!user.isPartner ? (
-                  <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
-                    <NotificationsIcon color="primary" />
-                  </Link>
-                ) : (
-                  <></>
-                )}
                 <Link to="/" style={{ textDecoration: 'none' }}>
                   <Button onClick={handleLogout} color="primary" variant="outlined" size="large" className={classes.button}>
                     Sair
