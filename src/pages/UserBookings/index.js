@@ -104,10 +104,10 @@ export const UserBookings = () => {
                                 >
                                   {(() => {
                                     if (booking.approved === true) {
-                                      return <CheckIcon color="primary" />;
+                                      return <CheckIcon className={classes.checkIcon} />;
                                     }
                                     if (booking.approved === false) {
-                                      return <ClearIcon />;
+                                      return <ClearIcon className={classes.closeIcon} />;
                                     }
                                     return 'Em Andamento';
                                   })()}

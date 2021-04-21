@@ -28,6 +28,7 @@ import useBooking from '../../context/BookingContext/hooks/useBooking';
 import { BookingProvider } from '../../context/BookingContext/bookingContext';
 import 'moment/locale/pt-br';
 import history from '../../routes/history';
+import { TableHours } from '../../components/TableHours';
 
 export const RequestBooking = ({ match }) => {
   const classes = useStyles();
@@ -100,6 +101,13 @@ export const RequestBooking = ({ match }) => {
                   className={classes.typography}
                 >
                   Solicitar reserva
+                </Typography>
+                <Typography variant="h6" align="center">
+                  Caso você solicite uma reserva
+                  enquanto o restaurante estiver fechado.
+                  Receberá a confirmação somente quando o
+                  restaurante abrir novamente.
+                  Verifique o horário de atendimento em caso de dúvidas.
                 </Typography>
                 <Toolbar />
                 <form onSubmit={handleSubmit}>

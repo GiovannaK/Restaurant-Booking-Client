@@ -18,6 +18,14 @@ const useStyles = makeStyles((lightTheme) => ({
     color: lightTheme.palette.primary.main,
     textTransform: 'uppercase',
   },
+  checkIcon: {
+    fontSize: '60px',
+    color: 'green',
+  },
+  closeIcon: {
+    fontSize: '50px',
+    color: 'red',
+  },
 }));
 
 export default useStyles;

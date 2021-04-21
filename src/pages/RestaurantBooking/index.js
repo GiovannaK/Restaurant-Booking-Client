@@ -156,10 +156,10 @@ export const RestaurantBookings = ({ match }) => {
                 </CardContent>
                 {(() => {
                   if (request.approved === true) {
-                    return <CheckIcon color="primary" />;
+                    return <CheckIcon className={classes.checkIcon} />;
                   }
                   if (request.approved === false) {
-                    return <ClearIcon />;
+                    return <ClearIcon className={classes.closeIcon} />;
                   }
                   return (
                     <CardActions className={classes.cardActions}>
