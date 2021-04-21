@@ -104,8 +104,8 @@ export const RequestBooking = ({ match }) => {
                 </Typography>
                 <Typography variant="h6" align="center">
                   Caso você solicite uma reserva
-                  enquanto o restaurante estiver fechado.
-                  Receberá a confirmação somente quando o
+                  enquanto o restaurante estiver fechado,
+                  receberá a confirmação somente quando o
                   restaurante abrir novamente.
                   Verifique o horário de atendimento em caso de dúvidas.
                 </Typography>
