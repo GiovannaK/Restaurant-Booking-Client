@@ -10,7 +10,6 @@ import useStyles from './styles';
 
 export const RestaurantDetailReview = ({ review }) => {
   const classes = useStyles();
-  console.log(review);
   return (
     <Grid container>
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
