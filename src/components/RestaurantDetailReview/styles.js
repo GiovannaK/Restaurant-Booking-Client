@@ -10,6 +10,9 @@ const useStyles = makeStyles((lightTheme) => ({
     fontWeight: 'bold',
     marginBottom: lightTheme.spacing(1),
   },
+  divider: {
+    marginBottom: lightTheme.spacing(1),
+  },
 }));
 
 export default useStyles;
