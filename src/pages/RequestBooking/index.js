@@ -28,7 +28,6 @@ import useBooking from '../../context/BookingContext/hooks/useBooking';
 import { BookingProvider } from '../../context/BookingContext/bookingContext';
 import 'moment/locale/pt-br';
 import history from '../../routes/history';
-import { TableHours } from '../../components/TableHours';
 
 export const RequestBooking = ({ match }) => {
   const classes = useStyles();
@@ -186,6 +185,7 @@ export const RequestBooking = ({ match }) => {
                           error={false}
                           style={{ width: '100%' }}
                           onChange={handleDate}
+                          minDate={new Date()}
                           KeyboardButtonProps={{
                             'aria-label': 'change date',
                           }}

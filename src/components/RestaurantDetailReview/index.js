@@ -18,7 +18,7 @@ export const RestaurantDetailReview = ({ review }) => {
               Avaliações
             </Typography>
             <Toolbar />
-            {!review.review ? (
+            {!review.length ? (
               <NoReview />
             ) : (
               review.map((item) => (

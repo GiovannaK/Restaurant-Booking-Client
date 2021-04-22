@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
@@ -81,7 +82,7 @@ export const RestaurantDetail = ({ match }) => {
     const fetchRestaurantReviews = async () => {
       try {
         const response = await api.get(`/reviews/${id}`);
-        setReview(response.data.restaurantBookingReviews);
+        setReview(response.data.restaurantBookingReviews.filter((item) => item.hasOwnProperty('review')));
         setLoading(false);
       } catch (error) {
         toast.error('Cannot show restaurant reviews');

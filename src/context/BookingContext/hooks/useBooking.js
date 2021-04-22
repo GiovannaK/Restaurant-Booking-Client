@@ -88,13 +88,38 @@ const useBooking = () => {
     }
   };
 
+  const createReview = async (id, comment, rating) => {
+    const token = await localStorage.getItem('authToken');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await api.post(`/review/${id}`, {
+        comment, rating,
+      }, config);
+      toast.info('Avaliação enviada');
+    } catch (error) {
+      toast.error('Não foi possível salvar sua avaliação de reserva');
+    }
+  };
+
   useEffect(() => {
     fetchAllSpecialDates();
     fetchUserBookings();
   }, []);
 
   return {
-    bookingSpecialDate, requestBooking, loading, userBookings, getBookingStatus, socket,
+    bookingSpecialDate,
+    requestBooking,
+    loading,
+    userBookings,
+    getBookingStatus,
+    socket,
+    createReview,
   };
 };
 

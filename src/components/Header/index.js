@@ -125,7 +125,7 @@ export const Header = () => {
                     <Link to="/user_bookings" style={{ textDecoration: 'none' }}>
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
-                          <PersonIcon color="primary" />
+                          <MenuBookIcon color="primary" />
                         </ListItemIcon>
                         <ListItemText>
                           <Typography variant="h6" color="primary">
