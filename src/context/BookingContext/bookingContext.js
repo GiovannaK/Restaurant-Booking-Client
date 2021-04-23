@@ -6,7 +6,7 @@ const BookingContext = createContext();
 const BookingProvider = ({ children }) => {
   const {
     bookingSpecialDate, requestBooking,
-    loading, userBookings, getBookingStatus, socket, createReview,
+    loading, userBookings, getBookingStatus, createReview,
   } = useBooking();
 
   return (
@@ -16,7 +16,6 @@ const BookingProvider = ({ children }) => {
       loading,
       userBookings,
       getBookingStatus,
-      socket,
       createReview,
     }}
     >

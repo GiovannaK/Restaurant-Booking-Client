@@ -11,9 +11,17 @@ const useBooking = () => {
   const [bookingSpecialDate, setBookingSpecialDate] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userBookings, setUserBookings] = useState([]);
-  const userToken = localStorage.getItem('authToken');
-  const decodedToken = jwtDecode(userToken);
-  const user = decodedToken.id;
+
+  const decodedUserToken = () => {
+    const userToken = localStorage.getItem('authToken');
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      return decodedToken.id;
+    }
+    return null;
+  };
+
+  const user = decodedUserToken();
 
   const connectionOptions = {
     'force new connection': true,
@@ -23,10 +31,8 @@ const useBooking = () => {
     query: { user },
   };
 
-  const socket = useMemo(() => socketio(`${process.env.REACT_APP_BASE_URL}`,
-    connectionOptions), [user]);
-
   const getBookingStatus = () => {
+    const socket = socketio(`${process.env.REACT_APP_BASE_URL}`, connectionOptions);
     socket.on('booking_response', (booking) => {
       setUserBookings((userBookings) => userBookings.map((item) => {
         if (item._id === booking._id) {
@@ -109,8 +115,11 @@ const useBooking = () => {
 
   useEffect(() => {
     fetchAllSpecialDates();
-    fetchUserBookings();
   }, []);
+
+  useEffect(() => {
+    fetchUserBookings();
+  }, [userBookings.length]);
 
   return {
     bookingSpecialDate,
@@ -118,7 +127,6 @@ const useBooking = () => {
     loading,
     userBookings,
     getBookingStatus,
-    socket,
     createReview,
   };
 };

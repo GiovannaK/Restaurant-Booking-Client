@@ -19,12 +19,12 @@ import { ReviewBooking } from './ReviewBooking';
 export const UserBookings = () => {
   const classes = useStyles();
   const {
-    userBookings, loading, getBookingStatus, socket,
+    userBookings, loading, getBookingStatus,
   } = useBooking(BookingContext);
 
   useEffect(() => {
     getBookingStatus();
-  }, [socket]);
+  }, []);
 
   return (
     <>
