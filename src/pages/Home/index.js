@@ -6,20 +6,36 @@
 import {
   AppBar, Box, Grid, Tab, Tabs, Toolbar,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { CannotFound } from '../../components/CannotFound';
 import { CardComponent } from '../../components/CardComponent';
 import { Loading } from '../../components/Loading';
 import useRestaurant from '../../context/RestaurantContext/hooks/useRestaurant';
 import { RestaurantContext } from '../../context/RestaurantContext/restaurantContext';
+import { api } from '../../services/api';
 import { AllRestaurants } from './AllRestaurants';
+import { SearchBar } from './SearchBar';
 
 export const Home = () => {
   const { restaurants, category, loading } = useRestaurant(RestaurantContext);
   const [filter, setFilter] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    const fetchSearch = async () => {
+      try {
+        const response = await api.get(`/search?q=${query}`);
+        setFilter(response.data.resultSearch);
+      } catch (error) {
+        toast.info('Não foi possível pesquisar');
+      }
+    };
+
+    fetchSearch();
+  }, [query]);
 
   const filterRestaurants = async (tab) => {
     const filteredRestaurants = await restaurants.filter((item) => item.restaurantCategory.name === tab);
@@ -56,6 +72,8 @@ export const Home = () => {
                 <>
                   <Toolbar />
                   <Box>
+                    <SearchBar getQuery={(q) => setQuery(q)} />
+                    <Toolbar />
                     <Grid container spacing={2}>
                       {filter.map((restaurant) => (
                         <Grid item align="center" xs={12} sm={6} md={6} lg={4} xl={3} key={restaurant._id}>

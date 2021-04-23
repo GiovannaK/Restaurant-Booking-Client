@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import { Box, Grid, Toolbar } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardComponent } from '../../components/CardComponent';
 import { Loading } from '../../components/Loading';
