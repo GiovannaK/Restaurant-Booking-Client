@@ -2,11 +2,8 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((lightTheme) => ({
-  inputRoot: {
-    color: 'inherit',
-  },
-
   input: {
+    position: 'relative',
     width: '80%',
     color: lightTheme.palette.primary.dark,
     border: '2px solid',

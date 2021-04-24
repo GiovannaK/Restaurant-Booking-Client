@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Grid, InputBase } from '@material-ui/core';
 import React, { useState } from 'react';
 import useStyles from './styles';
@@ -19,7 +18,6 @@ export const SearchBar = ({ getQuery }) => {
           placeholder="Pesquise por cidade ou nome do restaurante..."
           className={classes.input}
           variant="outlined"
-          autoFocus
           value={searchText}
           onChange={(e) => onChange(e.target.value)}
         />
