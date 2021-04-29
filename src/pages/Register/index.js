@@ -176,9 +176,11 @@ export const Register = () => {
                   </Button>
                   <div className={classes.links}>
                     <Typography variant="h6">
-                      <Button variant="outlined" color="primary">
-                        Tenho um restaurante
-                      </Button>
+                      <Link to="/register_as_partner" style={{ textDecoration: 'none' }}>
+                        <Button variant="outlined" color="primary">
+                          Tenho um restaurante
+                        </Button>
+                      </Link>
                     </Typography>
                     <Typography variant="h6">
                       <Link to="/login" style={{ textDecoration: 'none' }}>
