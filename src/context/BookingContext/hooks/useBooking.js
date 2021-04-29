@@ -42,6 +42,12 @@ const useBooking = () => {
         }
         return item;
       }));
+      if (booking.approved === true) {
+        toast.info('Sua reserva foi aprovada');
+      }
+      if (booking.approved === false) {
+        toast.error('Sua reserva foi rejeitada');
+      }
     });
   };
 
