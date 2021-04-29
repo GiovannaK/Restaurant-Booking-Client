@@ -22,20 +22,6 @@ export const Home = () => {
   const { restaurants, category, loading } = useRestaurant(RestaurantContext);
   const [filter, setFilter] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    const fetchSearch = async () => {
-      try {
-        const response = await api.get(`/search?q=${query}`);
-        setFilter(response.data.resultSearch);
-      } catch (error) {
-        toast.info('Não foi possível pesquisar');
-      }
-    };
-
-    fetchSearch();
-  }, [query]);
 
   const filterRestaurants = async (tab) => {
     const filteredRestaurants = await restaurants.filter((item) => item.restaurantCategory.name === tab);
@@ -70,9 +56,7 @@ export const Home = () => {
             filter.length
               ? (
                 <>
-                  <Toolbar />
                   <Box>
-                    <SearchBar getQuery={(q) => setQuery(q)} />
                     <Toolbar />
                     <Grid container spacing={2}>
                       {filter.map((restaurant) => (

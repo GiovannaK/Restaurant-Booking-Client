@@ -12,6 +12,7 @@ const RestaurantProvider = ({ children }) => {
     latitude,
     longitude,
     apiAddresses,
+    setRestaurants,
   } = useRestaurant();
 
   return (
@@ -26,6 +27,7 @@ const RestaurantProvider = ({ children }) => {
       latitude,
       longitude,
       apiAddresses,
+      setRestaurants,
     }}
     >
       {children}

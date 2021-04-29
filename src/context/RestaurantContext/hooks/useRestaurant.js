@@ -151,6 +151,7 @@ const useRestaurant = () => {
     latitude,
     longitude,
     apiAddresses,
+    setRestaurants,
   };
 };
 
