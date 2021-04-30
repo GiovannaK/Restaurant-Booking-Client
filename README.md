@@ -1,70 +1,154 @@
-# Getting Started with Create React App
+# 📃 GetYourTable
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## See preview here: https://getyourtable.netlify.app
+### Demo Credentials
+- E-MAIL: 
+- PASSWORD: 
+---
 
-## Available Scripts
+![Project Image](src/images/image1.png)
 
-In the project directory, you can run:
+![Project Image](src/images/image5.png)
 
-### `npm start`
+![Project Image](src/images/image7.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Project Image](src/images/image12.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![Project Image](src/images/image9.png)
 
-### `npm test`
+<p align="center">
+  <a href="#description">Description</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#how-to-use">How to Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#license">License</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#author-info">Author Info</a>
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Description
+GetYourTable is a web app for restaurant table booking. It is possible to manage restaurants and bookings for each restaurant separately in real time. In addition to making bookings at specific times with special requests and receiving response to the request in real time and by email.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Front-end
+- ReactJs
+- Material UI
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Services
 
-### `npm run eject`
+- HERE Geocoder API for geolocation functionality -> https://developer.here.com/documentation/geocoder/dev_guide/topics/what-is.html
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### REGISTRATION
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### There are two types of primary users. Restaurant manager and users who request reservations. You can register using name, last name, email, password and phone number.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### ACCOUNT ACTIVATION
+- When a user finish registration proccess, before login, the account must be activated. A short expiration token will be sent to the user's email.
 
-## Learn More
+### LOGIN
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- It is possible to log in using e-mail and password, if account is not activated it will not be possible to login.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### FORGOT PASSWORD
 
-### Code Splitting
+- Users can recover access to the account by requesting a password change.
+- A short expiration token will be sent to the user's email with a link to the password reset form.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### PROFILE
 
-### Analyzing the Bundle Size
+- Users can change their personal data
+- Track bookings in real time and receive an email if booking was approved or rejected
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### RESTAURANT MANAGER PROFILE
 
-### Making a Progressive Web App
+- Can change their personal data
+- Manage multiple restaurants
+- Create new restaurants
+- Update restaurants information
+- Upload restaurant images (drag and drop)
+- Track real-time bookings for each restaurant separately
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### AUTOCOMPLETE ADDRESS
+- It is possible type your restaurant address and select autocomplete suggestions
 
-### Advanced Configuration
+### SEARCH
+- It is possible to search restaurants by name and city
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### CATEGORIES
 
-### Deployment
+- 20 restaurant categories 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### BOOKINGS
+- Users can choose how many companions will take
+- Choose dates according to the restaurant's opening hours
+- it is possible to request additional
 
-### `npm run build` fails to minify
+---
+## How To Use
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Run locally
+
+### Clone the project
+
+```html
+git clone https://github.com/GiovannaK/Restaurant-Booking-Client.git
+```
+### Assuming you already have NodeJS and npm installed and properly configured: Run the command below to install all required dependencies
+
+```html
+npm install
+```
+### Creating Environment variables. 
+
+- create a .env file in the root folder
+
+- Then add the following information and your credentials
+
+```html
+REACT_APP_BASE_URL = API URL you can get here and run -> https://github.com/GiovannaK/Restaurant-Booking-server.git
+
+REACT_APP_HERE_KEY = For geolocation autocomplete you can create a free account and get your api key here -> https://developer.here.com/products/geocoding-and-search
+
+```
+### Finally run the project, it will initialized on port 3000
+
+```html
+npm start
+```
+---
+
+## License
+
+MIT License
+
+Copyright (c) [2020]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+
+---
+
+## Author Info
+
+- Linkedin - [Giovanna Cunha](https://www.linkedin.com/in/giovanna-cunha-4989b81b2/)
