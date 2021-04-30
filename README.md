@@ -40,7 +40,7 @@ GetYourTable is a web app for restaurant table booking. It is possible to manage
 - HERE Geocoder API for geolocation functionality -> https://developer.here.com/documentation/geocoder/dev_guide/topics/what-is.html
 
 ---
-## 💻 Features
+## Features
 
 ### REGISTRATION
 
@@ -88,7 +88,7 @@ GetYourTable is a web app for restaurant table booking. It is possible to manage
 - it is possible to request additional
 
 ---
-## ❗ How To Use
+## How To Use
 
 ### Run locally
 
@@ -121,7 +121,7 @@ npm start
 ```
 ---
 
-## 📌 License
+## License
 
 MIT License
 
