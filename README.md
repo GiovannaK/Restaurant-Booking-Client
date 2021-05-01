@@ -12,7 +12,7 @@
 
 ---
 
-![Project Image](src/images/image1.png)
+![Project Image](src/images/image.png)
 
 ![Project Image](src/images/image5.png)
 
