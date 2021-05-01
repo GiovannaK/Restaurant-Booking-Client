@@ -19,6 +19,14 @@ const useStyles = makeStyles((lightTheme) => ({
   icon: {
     maxWidth: '23px',
   },
+  isClosed: {
+    color: 'red',
+    textTransform: 'uppercase',
+  },
+  isOpen: {
+    textTransform: 'uppercase',
+    color: 'green',
+  },
 }));
 
 export default useStyles;

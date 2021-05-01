@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  Card, CardActionArea, CardActions, CardContent, CardMedia, Typography,
+  Card, CardActionArea, CardActions, CardContent, CardMedia, Divider, Typography,
 } from '@material-ui/core';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import NetworkWifiIcon from '@material-ui/icons/NetworkWifi';
@@ -30,7 +30,11 @@ export const CardComponent = ({ restaurant }) => {
           <Typography variant="h5" className={classes.typography}>
             {restaurant.companyName}
           </Typography>
-          <Typography variant="h6">{restaurant.isOpen ? 'Aberto' : 'Fechado'}</Typography>
+          <Typography variant="h6">
+            {restaurant.isOpen
+              ? <Typography variant="h6" className={classes.isOpen}>Aberto</Typography>
+              : <Typography variant="h6" className={classes.isClosed}>Fechado</Typography>}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -43,6 +47,12 @@ export const CardComponent = ({ restaurant }) => {
           />
         )}
 
+      </CardActions>
+      <Divider />
+      <CardActions>
+        <Typography variant="h6" color="primary">
+          {restaurant.address}
+        </Typography>
       </CardActions>
     </Card>
   );
