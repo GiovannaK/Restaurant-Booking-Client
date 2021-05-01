@@ -2,6 +2,7 @@ import {
   Box, Button, Grid, Toolbar, Typography,
 } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useStyles from './styles';
 import NoUserRestaurantsImage from '../../images/noUserRestaurants.png';
 
@@ -17,9 +18,11 @@ export const NoUserRestaurants = () => {
             </Typography>
             <img src={NoUserRestaurantsImage} style={{ width: '100%' }} alt="página não encontrada" />
             <Toolbar />
-            <Button variant="contained" color="primary">
-              Cadastrar restaurante
-            </Button>
+            <Link to="/register_restaurant" style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="primary">
+                Cadastrar restaurante
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Box>
