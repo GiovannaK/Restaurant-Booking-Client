@@ -1,6 +1,6 @@
 # 📃 GetYourTable
 
-## See preview here: https://getyourtable.netlify.app
+## See preview here: https://getyourtable.tk/
 ### Demo Credentials
 #### Normal user
 - E-MAIL: yeway40067@goqoez.com
@@ -12,7 +12,7 @@
 
 ---
 
-![Project Image](src/images/image1.png)
+![Project Image](src/images/image.png)
 
 ![Project Image](src/images/image5.png)
 
