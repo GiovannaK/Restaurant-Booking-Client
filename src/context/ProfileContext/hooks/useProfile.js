@@ -26,7 +26,7 @@ const useProfile = () => {
         setUser(response.data.user);
         setLoading(false);
       } catch (error) {
-        toast.error('Cannot show user information');
+        console.log(error);
       }
     }
   };
@@ -64,7 +64,7 @@ const useProfile = () => {
         setUserRestaurant(response.data.restaurant);
         setLoading(false);
       } catch (error) {
-        toast.error('Cannot show restaurant information');
+        console.log(error);
       }
     }
   };

@@ -54,7 +54,7 @@ export const Login = () => {
             </Hidden>
           </Grid>
           <Grid item align="center" xs={12} sm={8} md={8} lg={6} xl={6}>
-            <Card style={{ height: '88vh' }} variant="outlined">
+            <Card style={{ height: '88vh', overflow: 'auto' }} variant="outlined">
               <CardContent>
                 <Typography
                   variant="h3"
@@ -100,12 +100,11 @@ export const Login = () => {
                     color="primary"
                     size="large"
                     variant="contained"
-                    style={{ width: '100%' }}
+                    className={classes.button}
                     type="submit"
                   >
                     Login
                   </Button>
-                  <Toolbar />
                   <div className={classes.links}>
                     <Typography variant="h6">
                       <Link to="/forgot_password" style={{ textDecoration: 'none' }}>

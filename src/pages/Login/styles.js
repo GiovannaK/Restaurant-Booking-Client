@@ -18,6 +18,19 @@ const useStyles = makeStyles((lightTheme) => ({
     color: lightTheme.palette.primary.dark,
     letterSpacing: 2,
     textTransform: 'uppercase',
+    [lightTheme.breakpoints.down('md')]: {
+      marginTop: lightTheme.spacing(1),
+    },
+    [lightTheme.breakpoints.down('sm')]: {
+      marginTop: '25%',
+    },
+    [lightTheme.breakpoints.down('xs')]: {
+      marginTop: '25%',
+    },
+  },
+  button: {
+    marginBottom: lightTheme.spacing(2),
+    width: '100%',
   },
 }));
 

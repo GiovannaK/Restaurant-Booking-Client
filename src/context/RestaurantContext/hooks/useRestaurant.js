@@ -115,7 +115,7 @@ const useRestaurant = () => {
         longitude,
       }, config);
     } catch (error) {
-      toast.error('Cannot update informations');
+      console.log(error);
     }
   };
 
@@ -129,7 +129,7 @@ const useRestaurant = () => {
     try {
       const response = await api.delete(`/images/${id}`, {}, config);
     } catch (error) {
-      toast.error('Cannot show images');
+      console.log(error);
     }
   };
 
