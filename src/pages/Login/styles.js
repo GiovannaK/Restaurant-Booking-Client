@@ -29,6 +29,7 @@ const useStyles = makeStyles((lightTheme) => ({
     },
   },
   button: {
+    marginTop: lightTheme.spacing(1),
     marginBottom: lightTheme.spacing(2),
     width: '100%',
   },

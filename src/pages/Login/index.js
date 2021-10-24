@@ -39,6 +39,11 @@ export const Login = () => {
     handleLogin(email, password);
   };
 
+  const setCredentialDemo = () => {
+    setEmail('yeway40067@goqoez.com');
+    setPassword('getyourtable');
+  };
+
   return (
     <>
       <Toolbar />
@@ -96,6 +101,7 @@ export const Login = () => {
                     }}
                   />
                   <Toolbar />
+                  <Button onClick={setCredentialDemo}>Credenciais Demo</Button>
                   <Button
                     color="primary"
                     size="large"
