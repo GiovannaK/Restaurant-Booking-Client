@@ -1,6 +1,7 @@
 # 📃 GetYourTable
 
 ## See preview here: https://getyourtable.tk/
+## Server Repository https://github.com/GiovannaK/Restaurant-Booking-server
 ### Demo Credentials
 #### Normal user
 - E-MAIL: yeway40067@goqoez.com
